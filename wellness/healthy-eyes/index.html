@@ -419,25 +419,25 @@ body.healthy-eyes-page .big-timer {
       {
         name: "좌우 안구 이동",
         seconds: 15,
-        desc: "파란 점을 좌우로 따라가기!",
+        desc: "핑크색 포인터를 좌우로 따라가기!",
         pattern: "horizontal"
       },
       {
         name: "상하 안구 이동",
         seconds: 15,
-        desc: "파란 점을 위아래로 따라가기!",
+        desc: "핑크색 포인터를 위아래로 따라가기!",
         pattern: "vertical"
       },
       {
         name: "대각선 안구 이동",
         seconds: 15,
-        desc: "파란 점을 대각선으로 따라가기!",
+        desc: "핑크색 포인터를 대각선으로 따라가기!",
         pattern: "diagonal"
       },
       {
         name: "원형 추적",
         seconds: 15,
-        desc: "파란 점이 그리는 원 따라가기!",
+        desc: "핑크색 포인터이 그리는 원 따라가기!",
         pattern: "circle"
       }
     ];
@@ -553,7 +553,7 @@ body.healthy-eyes-page .big-timer {
     function runExerciseTimer() {
       if (timerId) return;
 
-      guide.textContent = "파란 점 따라가기!";
+      guide.textContent = "핑크색 포인터 따라가기!";
       moveDot();
       motionId = setInterval(moveDot, 950);
 
@@ -617,7 +617,7 @@ body.healthy-eyes-page .big-timer {
       motionStep = 0;
       updateExerciseDisplay();
       setDot(50, 50);
-      guide.textContent = "파란 점 따라가기!";
+      guide.textContent = "핑크색 포인터 따라가기!";
     }
 
     function nextMode() {
@@ -777,7 +777,7 @@ body.healthy-eyes-page .big-timer {
       autoSequence = false;
       returnToAutoManage = false;
 
-      guide.textContent = "파란 점 따라가기!";
+      guide.textContent = "핑크색 포인터 따라가기!";
       setDot(50, 50);
       updateManageDisplay();
     }
