@@ -459,6 +459,31 @@
       text-align: center;
     }
 
+    .timer-settings {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+      gap: 10px;
+      align-items: end;
+      margin: 14px 0 2px;
+    }
+
+    .timer-field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .timer-field label {
+      color: var(--my-muted);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .timer-field input {
+      min-height: 42px;
+      border-radius: 15px;
+    }
+
     .receipt {
       position: relative;
       overflow: hidden;
@@ -516,7 +541,7 @@
     }
 
     @media (max-width: 560px) {
-      .menu-grid, .name-row, .drink-actions, .pomodoro-actions { grid-template-columns: 1fr; }
+      .menu-grid, .name-row, .drink-actions, .pomodoro-actions, .timer-settings { grid-template-columns: 1fr; }
       .cup-zone { min-height: 380px; }
       .cup { width: 200px; height: 250px; }
       .lid { width: 196px; }
@@ -594,13 +619,24 @@
         <div class="myworkspace-card pomodoro" aria-label="cafe pomodoro">
           <div class="section-title">
             <h2>카공 뽀모도로</h2>
-            <span>25분 집중 · 5분 쉬기</span>
+            <span id="timerSettingLabel">25분 집중 · 5분 쉬기</span>
           </div>
           <div class="timer-face">
             <div>
               <div class="timer-time" id="timerTime">25:00</div>
               <div class="timer-mode" id="timerMode">focus time</div>
             </div>
+          </div>
+          <div class="timer-settings" aria-label="pomodoro time settings">
+            <div class="timer-field">
+              <label for="focusMinutes">집중 시간</label>
+              <input id="focusMinutes" type="number" min="1" max="180" step="1" value="25" />
+            </div>
+            <div class="timer-field">
+              <label for="breakMinutes">휴식 시간</label>
+              <input id="breakMinutes" type="number" min="1" max="60" step="1" value="5" />
+            </div>
+            <button class="btn secondary" id="applyTimerBtn" type="button">시간 적용</button>
           </div>
           <div class="pomodoro-actions">
             <button class="btn" id="startTimerBtn" type="button">시작</button>
@@ -702,13 +738,16 @@
     }
 
     function renderTimer() {
+      const focusMin = Math.round(timer.focus / 60);
+      const breakMin = Math.round(timer.break / 60);
       $('timerTime').textContent = timerLabel(timer.left);
       $('timerMode').textContent = timer.mode === 'focus' ? 'focus time' : 'break time';
       $('receiptTimer').textContent = `${timerLabel(timer.left)} ${timer.mode}`;
+      $('timerSettingLabel').textContent = `${focusMin}분 집중 · ${breakMin}분 쉬기`;
       if (timer.running) {
         $('timerNote').textContent = timer.mode === 'focus' ? '카공 집중 중. 음료는 천천히 마시기.' : '쉬는 시간. 한 모금 마시고 다시 시작하기.';
       } else {
-        $('timerNote').textContent = timer.mode === 'focus' ? '음료 한 잔 놓고 25분만 집중하기.' : '5분 쉬고 다시 집중하기.';
+        $('timerNote').textContent = timer.mode === 'focus' ? `음료 한 잔 놓고 ${focusMin}분만 집중하기.` : `${breakMin}분 쉬고 다시 집중하기.`;
       }
     }
 
@@ -778,11 +817,34 @@
       renderTimer();
     }
 
+    function clampMinute(value, min, max, fallback) {
+      const number = Number.parseInt(value, 10);
+      if (Number.isNaN(number)) return fallback;
+      return Math.max(min, Math.min(max, number));
+    }
+
+    function applyTimerSettings() {
+      const focusMinute = clampMinute($('focusMinutes').value, 1, 180, 25);
+      const breakMinute = clampMinute($('breakMinutes').value, 1, 60, 5);
+
+      $('focusMinutes').value = focusMinute;
+      $('breakMinutes').value = breakMinute;
+
+      pauseTimer();
+      timer.focus = focusMinute * 60;
+      timer.break = breakMinute * 60;
+      timer.mode = 'focus';
+      timer.left = timer.focus;
+      toast.textContent = `뽀모도로 시간을 ${focusMinute}분 집중 · ${breakMinute}분 휴식으로 바꿨습니다.`;
+      renderTimer();
+    }
+
     function resetTimer() {
       pauseTimer();
       timer.mode = 'focus';
       timer.left = timer.focus;
-      toast.textContent = '뽀모도로 타이머를 25분 집중 모드로 리셋했습니다.';
+      const focusMin = Math.round(timer.focus / 60);
+      toast.textContent = `뽀모도로 타이머를 ${focusMin}분 집중 모드로 리셋했습니다.`;
       renderTimer();
     }
 
@@ -798,9 +860,16 @@
     $('startTimerBtn').addEventListener('click', startTimer);
     $('pauseTimerBtn').addEventListener('click', pauseTimer);
     $('resetTimerBtn').addEventListener('click', resetTimer);
+    $('applyTimerBtn').addEventListener('click', applyTimerSettings);
 
     guestName.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') order();
+    });
+
+    ['focusMinutes', 'breakMinutes'].forEach((id) => {
+      $(id).addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') applyTimerSettings();
+      });
     });
 
     renderMenu();
