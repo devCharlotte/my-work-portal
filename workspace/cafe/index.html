@@ -459,31 +459,6 @@
       text-align: center;
     }
 
-    .timer-settings {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
-      gap: 10px;
-      align-items: end;
-      margin: 14px 0 2px;
-    }
-
-    .timer-field {
-      display: grid;
-      gap: 6px;
-    }
-
-    .timer-field label {
-      color: var(--my-muted);
-      font-size: 0.78rem;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-    }
-
-    .timer-field input {
-      min-height: 42px;
-      border-radius: 15px;
-    }
-
     .receipt {
       position: relative;
       overflow: hidden;
@@ -541,7 +516,7 @@
     }
 
     @media (max-width: 560px) {
-      .menu-grid, .name-row, .drink-actions, .pomodoro-actions, .timer-settings { grid-template-columns: 1fr; }
+      .menu-grid, .name-row, .drink-actions, .pomodoro-actions { grid-template-columns: 1fr; }
       .cup-zone { min-height: 380px; }
       .cup { width: 200px; height: 250px; }
       .lid { width: 196px; }
@@ -597,7 +572,7 @@
               <div class="ice i3"></div>
               <div class="cup-label">
                 <strong id="cupName">JoonHee</strong>
-                <span id="cupMenu">Iced Americano · 82%</span>
+                <span id="cupMenu">Iced Americano · 100%</span>
               </div>
             </div>
           </div>
@@ -606,7 +581,7 @@
         <div class="myworkspace-card panel amount-panel">
           <div class="amount-row">
             <span>남은 음료</span>
-            <strong id="amountText">82%</strong>
+            <strong id="amountText">100%</strong>
           </div>
           <div class="progress"><div class="progress-fill" id="progressFill"></div></div>
           <div class="drink-actions">
@@ -619,24 +594,13 @@
         <div class="myworkspace-card pomodoro" aria-label="cafe pomodoro">
           <div class="section-title">
             <h2>카공 뽀모도로</h2>
-            <span id="timerSettingLabel">25분 집중 · 5분 쉬기</span>
+            <span>25분 집중 · 5분 쉬기</span>
           </div>
           <div class="timer-face">
             <div>
               <div class="timer-time" id="timerTime">25:00</div>
               <div class="timer-mode" id="timerMode">focus time</div>
             </div>
-          </div>
-          <div class="timer-settings" aria-label="pomodoro time settings">
-            <div class="timer-field">
-              <label for="focusMinutes">집중 시간</label>
-              <input id="focusMinutes" type="number" min="1" max="180" step="1" value="25" />
-            </div>
-            <div class="timer-field">
-              <label for="breakMinutes">휴식 시간</label>
-              <input id="breakMinutes" type="number" min="1" max="60" step="1" value="5" />
-            </div>
-            <button class="btn secondary" id="applyTimerBtn" type="button">시간 적용</button>
           </div>
           <div class="pomodoro-actions">
             <button class="btn" id="startTimerBtn" type="button">시작</button>
@@ -653,7 +617,7 @@
             <div class="receipt-line"><span>menu</span><strong id="receiptMenu">Iced Americano</strong></div>
             <div class="receipt-line"><span>time</span><strong id="receiptTime">--:--</strong></div>
             <div class="receipt-line"><span>price</span><strong id="receiptPrice">₩4,300</strong></div>
-            <div class="receipt-line"><span>left</span><strong id="receiptLeft">82%</strong></div>
+            <div class="receipt-line"><span>left</span><strong id="receiptLeft">100%</strong></div>
             <div class="receipt-line"><span>timer</span><strong id="receiptTimer">25:00 focus</strong></div>
           </div>
           <div class="receipt-note" id="receiptNote">내 카공 최애 메뉴!</div>
@@ -664,14 +628,14 @@
 
   <script>
     const menus = [
-      { id: 'americano', icon: '🧊', name: 'Iced Americano', desc: '내 카공 최애 메뉴!', tag: 'my fav', price: 4300, color: '#4d372b', start: 82 },
-      { id: 'strawberry-yogurt', icon: '🍓', name: 'Strawberry Yogurt Smoothie', desc: '맛있어 딸기 요거트 스무디 좋아!', tag: 'my fav', price: 6200, color: '#ffc2d6', start: 88 },
-      { id: 'strawberry-latte', icon: '🥛', name: 'Strawberry Latte', desc: '맛있어 딸기 라떼 좋아!', tag: 'my fav', price: 5800, color: '#f79fba', start: 86 },
-      { id: 'vanilla-ice', icon: '☕', name: 'Iced Vanilla Latte', desc: '달달하게 오래 앉아있기 좋은 메뉴', tag: '달달 카공', price: 5600, color: '#d9b284', start: 84 },
-      { id: 'matcha', icon: '🍵', name: 'Matcha Latte', desc: '차분하게 집중하는 녹차 라떼', tag: '차분 집중', price: 5700, color: '#8fc47a', start: 84 },
-      { id: 'orange-ade', icon: '🍊', name: 'Orange Ade', desc: '시원하고 톡 쏘는 오렌지 에이드', tag: '상큼 톡톡', price: 5600, color: '#f7bd63', start: 90 },
-      { id: 'green-tangerine-ade', icon: '🍋', name: 'Cheonggyul Ade', desc: '청귤 에이드처럼 상큼하게 리프레시', tag: '청귤 리프레시', price: 5900, color: '#b7da7a', start: 90 },
-      { id: 'choco', icon: '🍫', name: 'Chocolate Latte', desc: '당 충전용 진한 라떼', tag: '당 충전', price: 5900, color: '#7c4b38', start: 80 }
+      { id: 'americano', icon: '🧊', name: 'Iced Americano', desc: '아이스 아메리카노가 내 카공 최애 메뉴!', tag: 'my fav', price: 4300, color: '#4d372b', start: 100 },
+      { id: 'strawberry-yogurt', icon: '🍓', name: 'Strawberry Yogurt Smoothie', desc: '딸기 요거트 스무디는 내가 좋아함!', tag: 'my fav', price: 6200, color: '#ffc2d6', start: 100 },
+      { id: 'strawberry-latte', icon: '🥛', name: 'Strawberry Latte', desc: '딸기 라떼는 내가 좋아함!', tag: 'my fav', price: 5800, color: '#f79fba', start: 100 },
+      { id: 'vanilla-ice', icon: '☕', name: 'Iced Vanilla Latte', desc: '달달하게 오래 앉아있기 좋은 메뉴', tag: '달달 카공', price: 5600, color: '#d9b284', start: 100 },
+      { id: 'matcha', icon: '🍵', name: 'Matcha Latte', desc: '차분하게 집중하는 녹차 라떼', tag: '차분 집중', price: 5700, color: '#8fc47a', start: 100 },
+      { id: 'orange-ade', icon: '🍊', name: 'Orange Ade', desc: '시원하고 톡 쏘는 오렌지 에이드', tag: '상큼 톡톡', price: 5600, color: '#f7bd63', start: 100 },
+      { id: 'green-tangerine-ade', icon: '🍋', name: 'Cheonggyul Ade', desc: '청귤 에이드처럼 상큼하게 리프레시', tag: '청귤 리프레시', price: 5900, color: '#b7da7a', start: 100 },
+      { id: 'choco', icon: '🍫', name: 'Chocolate Latte', desc: '당 충전용 진한 라떼', tag: '당 충전', price: 5900, color: '#7c4b38', start: 100 }
     ];
 
     const state = {
@@ -687,7 +651,8 @@
       break: 5 * 60,
       left: 25 * 60,
       running: false,
-      id: null
+      id: null,
+      lastTickAt: null
     };
 
     const $ = (id) => document.getElementById(id);
@@ -711,6 +676,20 @@
       return `${m}:${s}`;
     }
 
+    function resetDrinkToFull(message) {
+      state.amount = 100;
+      if (message) toast.textContent = message;
+      render();
+    }
+
+    function reduceDrinkByTimerTick() {
+      if (timer.mode !== 'focus') return;
+      const focusSeconds = Math.max(1, timer.focus);
+      const decreasePerSecond = 100 / focusSeconds;
+      state.amount = Math.max(0, Math.round((state.amount - decreasePerSecond) * 10) / 10);
+      render();
+    }
+
     function renderMenu() {
       menuGrid.innerHTML = menus.map((menu) => `
         <button class="menu-card ${menu.id === state.selected.id ? 'active' : ''}" type="button" data-id="${menu.id}">
@@ -728,9 +707,9 @@
         button.addEventListener('click', () => {
           const next = menus.find((menu) => menu.id === button.dataset.id);
           state.selected = next;
-          state.amount = next.start;
+          state.amount = 100;
           state.orderedAt = new Date();
-          toast.textContent = `${next.name} 선택 완료. 이름을 확인하고 주문하면 컵이 새로 준비됩니다.`;
+          toast.textContent = `${next.name} 선택 완료. 이름을 확인하고 주문하면 컵이 100%로 새로 준비됩니다.`;
           render();
           renderMenu();
         });
@@ -738,21 +717,19 @@
     }
 
     function renderTimer() {
-      const focusMin = Math.round(timer.focus / 60);
-      const breakMin = Math.round(timer.break / 60);
       $('timerTime').textContent = timerLabel(timer.left);
       $('timerMode').textContent = timer.mode === 'focus' ? 'focus time' : 'break time';
       $('receiptTimer').textContent = `${timerLabel(timer.left)} ${timer.mode}`;
-      $('timerSettingLabel').textContent = `${focusMin}분 집중 · ${breakMin}분 쉬기`;
       if (timer.running) {
         $('timerNote').textContent = timer.mode === 'focus' ? '카공 집중 중. 음료는 천천히 마시기.' : '쉬는 시간. 한 모금 마시고 다시 시작하기.';
       } else {
-        $('timerNote').textContent = timer.mode === 'focus' ? `음료 한 잔 놓고 ${focusMin}분만 집중하기.` : `${breakMin}분 쉬고 다시 집중하기.`;
+        $('timerNote').textContent = timer.mode === 'focus' ? '음료 한 잔 놓고 25분만 집중하기.' : '5분 쉬고 다시 집중하기.';
       }
     }
 
     function render() {
       const amount = Math.max(0, Math.min(100, state.amount));
+      const amountLabel = Number.isInteger(amount) ? amount + '%' : amount.toFixed(1) + '%';
       const name = state.name.trim() || 'JoonHee';
       const menu = state.selected;
 
@@ -760,14 +737,14 @@
       $('liquid').style.background = menu.color;
       $('progressFill').style.width = amount + '%';
       $('cupName').textContent = name;
-      $('cupMenu').textContent = `${menu.name} · ${amount}%`;
-      $('amountText').textContent = amount + '%';
+      $('cupMenu').textContent = `${menu.name} · ${amountLabel}`;
+      $('amountText').textContent = amountLabel;
 
       $('receiptName').textContent = name;
       $('receiptMenu').textContent = menu.name;
       $('receiptTime').textContent = timeLabel(state.orderedAt);
       $('receiptPrice').textContent = money(menu.price);
-      $('receiptLeft').textContent = amount + '%';
+      $('receiptLeft').textContent = amountLabel;
 
       if (amount === 0) {
         $('receiptNote').textContent = '다 마셨습니다. 리필하고 다시 집중하면 됩니다.';
@@ -785,7 +762,7 @@
       state.name = inputName || 'JoonHee';
       state.amount = state.selected.start;
       state.orderedAt = new Date();
-      toast.textContent = `${state.name}님의 ${state.selected.name} 주문 완료. 컵이랑 영수증에 이름을 찍었습니다.`;
+      toast.textContent = `${state.name}님의 ${state.selected.name} 주문 완료. 음료 100% 컵이랑 영수증에 이름을 찍었습니다.`;
       render();
     }
 
@@ -797,45 +774,37 @@
 
     function startTimer() {
       if (timer.running) return;
+      if (timer.mode === 'focus' && timer.left === timer.focus && state.amount < 100) {
+        state.amount = 100;
+      }
       timer.running = true;
+      timer.lastTickAt = Date.now();
       timer.id = window.setInterval(() => {
         timer.left -= 1;
+        reduceDrinkByTimerTick();
         if (timer.left <= 0) {
           timer.mode = timer.mode === 'focus' ? 'break' : 'focus';
           timer.left = timer.mode === 'focus' ? timer.focus : timer.break;
-          toast.textContent = timer.mode === 'focus' ? '쉬는 시간 끝. 다시 카공 시작!' : '25분 집중 끝. 5분 쉬는 시간!';
+          if (timer.mode === 'focus') {
+            state.amount = 100;
+            toast.textContent = '쉬는 시간 끝. 새 음료 100%로 다시 카공 시작!';
+          } else {
+            state.amount = 0;
+            toast.textContent = '집중 시간 끝. 음료도 다 마셨습니다. 5분 쉬는 시간!';
+          }
+          render();
         }
         renderTimer();
       }, 1000);
-      renderTimer();
+      toast.textContent = '뽀모도로 시작. 음료가 100%에서 시간에 맞춰 줄어듭니다.';
+      render();
     }
 
     function pauseTimer() {
       timer.running = false;
       if (timer.id) window.clearInterval(timer.id);
       timer.id = null;
-      renderTimer();
-    }
-
-    function clampMinute(value, min, max, fallback) {
-      const number = Number.parseInt(value, 10);
-      if (Number.isNaN(number)) return fallback;
-      return Math.max(min, Math.min(max, number));
-    }
-
-    function applyTimerSettings() {
-      const focusMinute = clampMinute($('focusMinutes').value, 1, 180, 25);
-      const breakMinute = clampMinute($('breakMinutes').value, 1, 60, 5);
-
-      $('focusMinutes').value = focusMinute;
-      $('breakMinutes').value = breakMinute;
-
-      pauseTimer();
-      timer.focus = focusMinute * 60;
-      timer.break = breakMinute * 60;
-      timer.mode = 'focus';
-      timer.left = timer.focus;
-      toast.textContent = `뽀모도로 시간을 ${focusMinute}분 집중 · ${breakMinute}분 휴식으로 바꿨습니다.`;
+      timer.lastTickAt = null;
       renderTimer();
     }
 
@@ -843,33 +812,26 @@
       pauseTimer();
       timer.mode = 'focus';
       timer.left = timer.focus;
-      const focusMin = Math.round(timer.focus / 60);
-      toast.textContent = `뽀모도로 타이머를 ${focusMin}분 집중 모드로 리셋했습니다.`;
-      renderTimer();
+      state.amount = 100;
+      toast.textContent = '뽀모도로 타이머와 음료를 100%로 리셋했습니다.';
+      render();
     }
 
     $('orderBtn').addEventListener('click', order);
     $('sipBtn').addEventListener('click', () => drink(10));
     $('bigSipBtn').addEventListener('click', () => drink(24));
     $('refillBtn').addEventListener('click', () => {
-      state.amount = state.selected.start;
+      state.amount = 100;
       state.orderedAt = new Date();
-      toast.textContent = '리필 완료. 영수증 시간도 새로 찍었습니다.';
+      toast.textContent = '리필 완료. 음료가 100%로 다시 찼고 영수증 시간도 새로 찍었습니다.';
       render();
     });
     $('startTimerBtn').addEventListener('click', startTimer);
     $('pauseTimerBtn').addEventListener('click', pauseTimer);
     $('resetTimerBtn').addEventListener('click', resetTimer);
-    $('applyTimerBtn').addEventListener('click', applyTimerSettings);
 
     guestName.addEventListener('keydown', (event) => {
       if (event.key === 'Enter') order();
-    });
-
-    ['focusMinutes', 'breakMinutes'].forEach((id) => {
-      $(id).addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') applyTimerSettings();
-      });
     });
 
     renderMenu();
