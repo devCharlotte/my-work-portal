@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JoonHee's Pilates & Yoga Guide v2</title>
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://cdn.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimNadeuriTTF-B.woff2" />
+  <style>
+@font-face {
+  font-family: 'HakgyoansimNadeuriTTF-B';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimNadeuriTTF-B.woff2') format('woff2'),
+       url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimNadeuriTTF-B.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --bg1:#eef9ff; --bg2:#dff3ff; --bg3:#fff7fb; --ink:#24343c; --muted:#667b84;
+  --card:rgba(255,255,255,.82); --line:rgba(36,52,60,.10);
+  --blue:#75caff; --pink:#ffd1e8; --deep-pink:#f372b2; --green:#9ee9c7; --yellow:#ffe6a6; --violet:#cdb9ff;
+  --shadow:0 22px 55px rgba(72,120,145,.16); --r:28px; --r2:18px;
+}
+*,*::before,*::after {
+  box-sizing:border-box;
+  font-family:'HakgyoansimNadeuriTTF-B',-apple-system,BlinkMacSystemFont,'Segoe UI','Apple SD Gothic Neo','Noto Sans KR',sans-serif !important;
+}
+html, body { margin:0; padding:0; }
+body {
+  min-height:100vh; color:var(--ink); font-weight:700;
+  background:
+    radial-gradient(circle at 8% 10%,rgba(117,202,255,.42),transparent 28%),
+    radial-gradient(circle at 92% 7%,rgba(255,209,232,.58),transparent 26%),
+    radial-gradient(circle at 83% 85%,rgba(158,233,199,.38),transparent 32%),
+    linear-gradient(135deg,var(--bg1),var(--bg2) 48%,var(--bg3));
+  background-attachment:fixed; overflow-x:hidden;
+}
+button,input,select { font:inherit; } button { border:0; cursor:pointer; }
+.page { width:min(1480px,calc(100% - 28px)); margin:0 auto; padding:28px 0 54px; }
+.glass { background:var(--card); border:1px solid var(--line); border-radius:var(--r); box-shadow:var(--shadow); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); }
+
+.portal-nav { width:min(1480px,calc(100% - 28px)); margin:18px auto -8px; display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.portal-nav a { text-decoration:none; color:#405862; padding:10px 13px; border-radius:999px; background:rgba(255,255,255,.72); border:1px solid var(--line); box-shadow:0 10px 24px rgba(72,120,145,.10); font-size:13px; font-weight:900; transition:.18s; }
+.portal-nav a:hover { transform:translateY(-1px); filter:brightness(1.02); }
+
+.hero { display:grid; grid-template-columns:1.45fr .85fr; gap:18px; margin-bottom:18px; }
+.hero-main { padding:32px; position:relative; overflow:hidden; }
+.hero-main:after { content:""; position:absolute; right:-70px; top:-80px; width:230px; height:230px; border-radius:50%; background:linear-gradient(135deg,rgba(117,202,255,.35),rgba(255,209,232,.55)); }
+.eyebrow { position:relative; z-index:1; display:inline-flex; padding:8px 13px; border-radius:999px; background:rgba(255,255,255,.7); border:1px solid var(--line); font-size:13px; font-weight:800; color:#4e6973; }
+h1 { position:relative; z-index:1; margin:18px 0 12px; font-size:clamp(32px,5vw,58px); line-height:.98; letter-spacing:-.06em; }
+.hero-line { position:relative; z-index:1; display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+.mini-pill { padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.68); border:1px solid var(--line); color:#536a73; font-size:12px; font-weight:850; }
+.stats { position:relative; z-index:1; display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:22px; }
+.stat { padding:15px; border-radius:20px; background:rgba(255,255,255,.64); border:1px solid var(--line); }
+.stat strong { display:block; font-size:25px; letter-spacing:-.04em; }
+.stat span { display:block; margin-top:3px; color:var(--muted); font-size:12px; font-weight:800; }
+.hero-side { padding:22px; display:flex; flex-direction:column; gap:14px; }
+.side-note-label { color:var(--muted); font-size:13px; font-weight:900; margin-bottom:10px; }
+.side-note-value { font-size:clamp(20px,2.2vw,27px); line-height:1.22; letter-spacing:-.05em; }
+.tip-box { padding:15px 16px; border-radius:20px; background:rgba(255,255,255,.65); border:1px dashed rgba(36,52,60,.18); }
+.tip-title { margin-bottom:8px; color:#4e6973; font-size:13px; font-weight:900; }
+.tip-box p { margin:0; color:#60747d; line-height:1.6; font-size:13px; font-weight:750; }
+
+.dashboard { display:grid; grid-template-columns:minmax(0,1fr) 360px; gap:18px; align-items:start; }
+.main-area,.right { min-width:0; }
+.panel { padding:20px; } .sticky { position:sticky; top:18px; } .panel h2 { margin:0; font-size:18px; letter-spacing:-.04em; }
+.top-filter-card { padding:18px; margin-bottom:14px; border-radius:var(--r); }
+.category-title { margin-bottom:12px; text-align:center; color:#405862; font-size:13px; font-weight:900; }
+.tabs { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; }
+.chips { display:flex; flex-wrap:wrap; gap:6px; }
+.chip,.tab { padding:8px 10px; border-radius:999px; background:rgba(255,255,255,.72); border:1px solid var(--line); color:#536a73; font-size:11px; font-weight:850; transition:.18s; white-space:nowrap; }
+.tab { font-size:12px; padding:9px 12px; }
+.chip.active,.tab.active { color:#20313a; background:linear-gradient(135deg,rgba(117,202,255,.9),rgba(255,209,232,.86)); border-color:rgba(36,52,60,.04); box-shadow:0 10px 22px rgba(72,120,145,.13); }
+.filter-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; align-items:flex-start; }
+.filter-block { min-width:0; flex:1 1 220px; padding:11px 12px; border-radius:18px; background:rgba(255,255,255,.58); border:1px solid var(--line); }
+.filter-block .label { color:#405862; font-size:13px; font-weight:900; margin-bottom:8px; }
+.search { width:100%; min-height:38px; padding:10px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(255,255,255,.84); outline:none; color:var(--ink); }
+.search:focus { border-color:rgba(117,202,255,.82); box-shadow:0 0 0 4px rgba(117,202,255,.15); }
+.hidden { display:none!important; }
+
+.toolbar { display:flex; justify-content:center; margin-bottom:14px; } .meta { font-size:13px; color:#647984; font-weight:850; }
+.cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.card { padding:16px; border-radius:26px; background:var(--card); border:1px solid var(--line); box-shadow:var(--shadow); transition:.18s; overflow:hidden; }
+.card:hover { transform:translateY(-2px); filter:brightness(1.02); box-shadow:0 14px 26px rgba(72,120,145,.12); }
+.card-top { display:grid; grid-template-columns:108px 1fr; gap:14px; align-items:center; }
+.art { width:108px; height:108px; border-radius:24px; background:radial-gradient(circle at 75% 12%,rgba(255,209,232,.52),transparent 34%),linear-gradient(135deg,rgba(255,255,255,.9),rgba(224,246,255,.76)); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; overflow:hidden; position:relative; }
+.art svg { width:94px; height:94px; }
+.in-seq { position:absolute; top:6px; left:6px; min-width:22px; height:22px; padding:0 6px; border-radius:11px; background:linear-gradient(135deg,var(--blue),var(--pink)); color:#20313a; font-size:11px; font-weight:900; display:flex; align-items:center; justify-content:center; }
+.title { margin:0; font-size:17px; line-height:1.22; letter-spacing:-.04em; }
+.sub { margin:6px 0 0; color:#6a7e86; font-size:12px; font-weight:850; }
+.tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+.tag { padding:6px 8px; border-radius:999px; background:rgba(255,255,255,.7); border:1px solid var(--line); color:#5b7078; font-size:11px; font-weight:850; }
+.tag.type { background:rgba(255,230,166,.48); } .tag.style { background:rgba(158,233,199,.38); } .tag.bp { background:rgba(207,191,255,.35); }
+.actions { display:flex; gap:8px; margin-top:14px; flex-wrap:wrap; }
+.primary,.ghost { flex:1; min-height:40px; border-radius:999px; font-size:12px; font-weight:900; transition:.18s; }
+.primary { color:#20313a; background:linear-gradient(135deg,var(--blue),var(--pink)); box-shadow:0 12px 24px rgba(72,120,145,.14); }
+.primary:hover,.ghost:hover { transform:translateY(-1px); filter:brightness(1.03); }
+.ghost { color:#536a73; background:rgba(255,255,255,.67); border:1px solid var(--line); }
+.primary:disabled,.ghost:disabled { opacity:.45; transform:none; cursor:default; }
+.empty { padding:18px; border-radius:20px; background:rgba(255,255,255,.54); border:1px dashed rgba(36,52,60,.18); color:var(--muted); font-size:13px; line-height:1.6; text-align:center; }
+
+/* 시퀀스 빌더 패널 */
+.seq-title-label { color:#405862; font-size:13px; font-weight:900; margin:14px 0 6px; }
+.seq-title-input { width:100%; padding:11px 12px; border-radius:14px; border:1px solid var(--line); background:rgba(255,255,255,.84); outline:none; color:var(--ink); font-size:15px; letter-spacing:-.03em; }
+.seq-title-input:focus { border-color:rgba(117,202,255,.82); box-shadow:0 0 0 4px rgba(117,202,255,.15); }
+.byline { margin-top:8px; color:#6a7e86; font-size:12px; font-weight:850; }
+.seq-items { display:grid; gap:8px; margin-top:14px; max-height:430px; overflow:auto; padding-right:2px; }
+.seq-item { display:grid; grid-template-columns:24px 50px 1fr auto; gap:8px; align-items:center; padding:8px 10px; border-radius:18px; background:rgba(255,255,255,.66); border:1px solid var(--line); }
+.seq-item .num { width:24px; height:24px; border-radius:50%; background:linear-gradient(135deg,rgba(117,202,255,.9),rgba(255,209,232,.86)); color:#20313a; font-size:11px; font-weight:900; display:flex; align-items:center; justify-content:center; }
+.seq-item .thumb { width:50px; height:50px; border-radius:14px; background:rgba(255,255,255,.8); border:1px solid var(--line); display:flex; align-items:center; justify-content:center; }
+.seq-item .thumb svg { width:44px; height:44px; }
+.seq-item .nm strong { display:block; font-size:13px; letter-spacing:-.03em; }
+.seq-item .nm span { display:block; margin-top:2px; color:var(--muted); font-size:10.5px; font-weight:800; }
+.seq-item .ctl { display:flex; gap:2px; }
+.seq-item .ctl button { width:28px; height:28px; border-radius:10px; background:rgba(255,255,255,.6); border:1px solid var(--line); color:#536a73; font-size:13px; line-height:1; }
+.seq-item .ctl button:hover { background:linear-gradient(135deg,rgba(117,202,255,.5),rgba(255,209,232,.5)); color:#20313a; }
+.builder-actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:14px; }
+.builder-actions .wide-btn { grid-column:1/-1; }
+.list { display:grid; gap:9px; margin-top:14px; }
+.item { width:100%; text-align:left; padding:12px; border-radius:18px; background:rgba(255,255,255,.66); border:1px solid var(--line); color:var(--ink); display:grid; grid-template-columns:1fr auto auto; gap:8px; align-items:center; }
+.item strong { display:block; font-size:13px; letter-spacing:-.03em; }
+.item span { display:block; margin-top:3px; color:var(--muted); font-size:11px; font-weight:800; }
+.item .small-btn { padding:7px 11px; border-radius:999px; font-size:11px; font-weight:900; }
+.item .small-btn.load { color:#20313a; background:linear-gradient(135deg,rgba(117,202,255,.75),rgba(255,209,232,.7)); }
+.item .small-btn.del { color:#8a99a1; background:rgba(255,255,255,.6); border:1px solid var(--line); }
+
+/* 모달 (동작 가이드 / 스토리 미리보기) */
+.modal { position:fixed; inset:0; z-index:50; display:none; align-items:center; justify-content:center; padding:22px; background:rgba(25,39,48,.28); backdrop-filter:blur(10px); }
+.modal.open { display:flex; }
+.modal-box { width:min(880px,100%); max-height:min(88vh,900px); overflow:auto; padding:22px; background:rgba(255,255,255,.94); position:relative; }
+.modal-head { display:grid; grid-template-columns:170px 1fr auto; gap:18px; align-items:center; padding-bottom:16px; border-bottom:1px solid var(--line); }
+.modal .art { width:170px; height:170px; } .modal .art svg { width:148px; height:148px; }
+.modal h3 { margin:0; font-size:clamp(24px,3vw,36px); line-height:1.05; letter-spacing:-.055em; }
+.modal-desc { margin:10px 0 0; color:#536a73; line-height:1.65; font-size:14px; font-weight:800; }
+.close { width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,.8); border:1px solid var(--line); color:#405862; font-size:22px; }
+.detail { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px; }
+.box { padding:16px; border-radius:22px; background:rgba(240,250,255,.74); border:1px solid var(--line); }
+.box h4 { margin:0 0 10px; font-size:14px; }
+.box p { margin:0; color:#536870; font-size:13px; line-height:1.75; font-weight:800; }
+.wide { grid-column:1/-1; }
+.modal-actions { display:flex; gap:8px; margin-top:16px; }
+
+.preview-box { width:min(560px,100%); }
+.preview-wrap { display:flex; flex-direction:column; align-items:center; gap:14px; margin-top:14px; }
+.preview-wrap img { width:min(62%,250px); border-radius:18px; border:1px solid var(--line); box-shadow:var(--shadow); }
+.preview-hint { color:var(--muted); font-size:12px; line-height:1.65; text-align:center; font-weight:800; }
+.preview-actions { display:flex; gap:8px; width:100%; }
+
+.toast { position:fixed; left:50%; bottom:22px; transform:translate(-50%,18px); z-index:80; max-width:min(640px,calc(100vw - 32px)); padding:12px 16px; border-radius:999px; background:rgba(255,255,255,.92); border:1px solid rgba(120,144,180,.22); box-shadow:0 18px 42px rgba(94,120,160,.18); color:#253044; font-size:13px; line-height:1.45; font-weight:800; opacity:0; pointer-events:none; transition:.18s; text-align:center; }
+.toast.show { opacity:1; transform:translate(-50%,0); }
+
+.float-seq { position:fixed; right:16px; bottom:18px; z-index:40; display:none; padding:13px 17px; border-radius:999px; color:#20313a; background:linear-gradient(135deg,var(--blue),var(--pink)); box-shadow:0 16px 34px rgba(72,120,145,.26); font-size:13px; font-weight:900; }
+
+@media(max-width:1180px) {
+  .dashboard { grid-template-columns:1fr; }
+  .right { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+  .right .panel { margin-top:0!important; position:static; }
+  .float-seq { display:inline-flex; }
+}
+@media(max-width:980px) {
+  .hero { grid-template-columns:1fr; }
+  .cards { grid-template-columns:1fr; }
+  .right { grid-template-columns:1fr; }
+}
+@media(max-width:760px) {
+  .stats { grid-template-columns:repeat(2,1fr); }
+  .detail,.modal-head { grid-template-columns:1fr; }
+  .close { position:absolute; right:22px; top:22px; }
+  .hero-main { padding:24px; }
+  h1 { font-size:clamp(31px,11vw,44px); }
+  .card-top { grid-template-columns:92px 1fr; }
+  .art { width:92px; height:92px; } .art svg { width:80px; height:80px; }
+}
+  </style>
+</head>
+<body>
+
+  <nav class="portal-nav" aria-label="portal navigation">
+    <a href="../">← Wellness</a>
+    <a href="../../">my workspace</a>
+    <a href="../pilates-yoga-guide/">v1 가이드</a>
+  </nav>
+
+  <main class="page">
+    <section class="hero">
+      <div class="hero-main glass">
+        <span class="eyebrow">soft routine portal · sequence builder</span>
+        <h1>JoonHee's Pilates &amp; Yoga Guide v2</h1>
+        <div class="hero-line">
+          <span class="mini-pill">yoga</span>
+          <span class="mini-pill">pilates</span>
+          <span class="mini-pill">recovery ring</span>
+          <span class="mini-pill">magic circle</span>
+          <span class="mini-pill">9:16 story export</span>
+        </div>
+        <div class="stats">
+          <div class="stat"><strong id="statTotal">0</strong><span>전체 동작</span></div>
+          <div class="stat"><strong id="statSeq">0</strong><span>현재 시퀀스</span></div>
+          <div class="stat"><strong id="statSaved">0</strong><span>저장된 시퀀스</span></div>
+          <div class="stat"><strong>4</strong><span>카테고리</span></div>
+        </div>
+      </div>
+      <aside class="hero-side glass">
+        <div>
+          <div class="side-note-label">what's new in v2</div>
+          <div class="side-note-value">동작을 골라 담고 순서를 정리하면<br>인스타 스토리용 시퀀스 카드가 완성!</div>
+        </div>
+        <div class="tip-box">
+          <div class="tip-title">사용 흐름</div>
+          <p>1) 카드의 <b>담기</b>로 동작을 추가하고 2) 오른쪽 <b>나의 시퀀스</b>에서 순서를 정리한 뒤 3) <b>스토리 이미지</b>를 누르면 9:16 (1080×1920) 이미지가 만들어집니다. 카드를 누르면 동작 가이드를 볼 수 있어요.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="dashboard">
+      <section class="main-area">
+        <div class="top-filter-card glass">
+          <div class="category-title">카테고리 선택</div>
+          <div id="tabs" class="tabs"></div>
+          <div class="filter-row">
+            <div class="filter-block" style="flex:1.4 1 260px">
+              <div class="label">검색</div>
+              <input id="search" class="search" type="search" placeholder="전사, 티저, 브릿지, 햄스트링" />
+            </div>
+            <div class="filter-block">
+              <div class="label">부위</div>
+              <div id="bpChips" class="chips"></div>
+            </div>
+            <div class="filter-block hidden" id="styleBlock">
+              <div class="label">요가 스타일</div>
+              <div id="styleChips" class="chips"></div>
+            </div>
+          </div>
+        </div>
+        <div class="toolbar"><div id="meta" class="meta">0개 표시 중</div></div>
+        <div id="cards" class="cards"></div>
+        <div id="empty" class="empty hidden">조건에 맞는 동작이 없습니다. 검색어를 줄이거나 필터를 조정해보세요.</div>
+      </section>
+
+      <aside class="right">
+        <div class="panel glass sticky" id="builderPanel">
+          <h2>나의 시퀀스</h2>
+          <div class="seq-title-label">SEQUENCE TITLE</div>
+          <input id="seqTitle" class="seq-title-input" value="Today's Sequence" maxlength="26" />
+          <div class="byline">Instructor — Joon Hee</div>
+          <div id="seqItems" class="seq-items"></div>
+          <div class="builder-actions">
+            <button class="primary wide-btn" id="exportBtn" type="button" disabled>스토리 이미지 만들기 (9:16)</button>
+            <button class="ghost" id="saveBtn" type="button" disabled>저장</button>
+            <button class="ghost" id="clearBtn" type="button" disabled>비우기</button>
+          </div>
+        </div>
+        <div class="panel glass sticky" style="margin-top:18px">
+          <h2>보관함</h2>
+          <div id="savedList" class="list"></div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <button class="float-seq" id="floatSeq" type="button">시퀀스 <span id="floatCount">0</span> · 보기</button>
+
+  <!-- 동작 가이드 모달 -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box glass">
+      <div class="modal-head">
+        <div id="modalArt" class="art"></div>
+        <div>
+          <h3 id="modalTitle"></h3>
+          <p id="modalDesc" class="modal-desc"></p>
+          <div id="modalTags" class="tags"></div>
+        </div>
+        <button id="closeModal" class="close" type="button" aria-label="닫기">×</button>
+      </div>
+      <div class="detail">
+        <div class="box"><h4>🎯 TARGET</h4><p id="gTarget"></p></div>
+        <div class="box"><h4>💡 TEACHING TIP</h4><p id="gTip"></p></div>
+        <div class="box wide"><h4>📋 HOW TO</h4><p id="gHow"></p></div>
+      </div>
+      <div class="modal-actions">
+        <button class="primary" id="modalAdd" type="button">＋ 시퀀스에 담기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 스토리 이미지 미리보기 모달 -->
+  <div id="previewModal" class="modal" role="dialog" aria-modal="true">
+    <div class="modal-box glass preview-box">
+      <div class="modal-head" style="grid-template-columns:1fr auto">
+        <h3 style="font-size:22px">스토리 이미지 (9:16)</h3>
+        <button id="closePreview" class="close" type="button" aria-label="닫기">×</button>
+      </div>
+      <div class="preview-wrap">
+        <img id="previewImg" alt="시퀀스 스토리 이미지 미리보기" />
+        <div class="preview-hint">공유가 안 되는 환경에서는 이미지를 길게 눌러(또는 우클릭) 저장한 뒤<br>인스타그램 스토리에 업로드하세요.</div>
+        <div class="preview-actions">
+          <button class="ghost" id="downloadBtn" type="button">다운로드</button>
+          <button class="primary" id="shareBtn" type="button">공유하기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+const CATS={y:"요가",p:"필라테스",r:"리커버링",c2:"써클링"};
+const STYLES={vin:"빈야사",hat:"하타",yin:"인·회복"};
+const BP={full:"전신",core:"코어·복부",lower:"하체",upper:"상체·어깨",spine:"척추·등",hip:"고관절·골반",bal:"밸런스",relax:"이완·회복"};
+
+const POSES=[
+/* ─────────── 요가 (50) ─────────── */
+{id:"y01",c:"y",st:"hat",bp:["full"],ko:"산 자세",en:"Tadasana",h:[60,16],l:[[[60,24],[60,60]],[[60,32],[53,58]],[[60,32],[67,58]],[[57,60],[57,100]],[[63,60],[63,100]]],
+ g:["전신 정렬","발을 모아 서서 체중을 발바닥 전체에 고르게 싣고, 정수리를 위로 길게 늘이며 어깨의 긴장을 내려놓습니다.","모든 스탠딩 자세의 기준 정렬. 귀–어깨–골반–복사뼈가 한 선이 되게."]},
+{id:"y02",c:"y",st:"vin",bp:["lower","core"],ko:"의자 자세",en:"Utkatasana",h:[68,28],l:[[[65,36],[56,62]],[[56,62],[50,80],[54,100]],[[59,62],[53,80],[58,100]],[[63,42],[78,20]]],
+ g:["허벅지·둔근·코어","숨을 마시며 양팔을 귀 옆으로 뻗고, 내쉬며 의자에 앉듯 무릎을 굽혀 체중을 뒤꿈치에 싣습니다.","무릎이 발끝보다 앞으로 나가지 않게, 꼬리뼈는 살짝 말아 허리 보호."]},
+{id:"y03",c:"y",st:"vin",bp:["lower","spine"],ko:"서서 전굴",en:"Uttanasana",h:[44,88],l:[[[66,55],[48,80]],[[50,78],[52,98]],[[64,55],[64,100]],[[68,55],[68,100]]],
+ g:["햄스트링·척추 이완","숨을 내쉬며 고관절부터 접어 상체를 다리 위로 떨어뜨리고, 목과 어깨의 힘을 완전히 풉니다.","무릎을 살짝 굽혀도 좋아요. 배와 허벅지가 가까운 것이 우선."]},
+{id:"y04",c:"y",st:"vin",bp:["full","upper"],ko:"다운독",en:"Adho Mukha Svanasana",h:[44,90],l:[[[68,56],[46,82]],[[46,82],[32,100]],[[48,84],[36,100]],[[68,56],[86,100]],[[70,58],[90,100]]],
+ g:["전신 후면·어깨","손으로 바닥을 밀며 엉덩이를 뒤·위로 보내 몸으로 삼각형을 만들고, 귀와 어깨 사이 공간을 만듭니다.","뒤꿈치가 안 닿아도 OK. 척추가 길게 펴지는 것이 우선입니다."]},
+{id:"y05",c:"y",st:"vin",bp:["core","upper"],ko:"플랭크",en:"Phalakasana",h:[28,66],l:[[[36,72],[88,90]],[[36,72],[36,100]],[[40,74],[42,100]],[[88,90],[91,100]]],
+ g:["코어·어깨 안정화","어깨 아래 손목을 두고 정수리부터 뒤꿈치까지 한 판자가 되도록 복부와 둔근을 단단히 조입니다.","허리가 꺼지면 무릎을 내려 변형하세요."]},
+{id:"y06",c:"y",st:"hat",bp:["spine"],ko:"코브라 자세",en:"Bhujangasana",h:[46,66],l:[[[50,74],[58,86],[72,96]],[[72,96],[95,98]],[[52,78],[50,98]]],
+ g:["척추 신전·가슴 열기","엎드린 자세에서 손으로 가볍게 바닥을 누르며 가슴부터 들어 올리고, 치골은 바닥에 둡니다.","어깨를 귀에서 멀리. 허리가 아니라 가슴이 열리는 느낌으로."]},
+{id:"y07",c:"y",st:"vin",bp:["spine","upper"],ko:"업독",en:"Urdhva Mukha Svanasana",h:[42,60],l:[[[46,68],[58,84],[72,92]],[[72,92],[94,96]],[[46,70],[44,98]]],
+ g:["척추 신전·팔 강화","팔을 곧게 펴 상체를 들고 허벅지까지 바닥에서 띄우며, 발등으로 바닥을 누릅니다.","빈야사 플로우에서 코브라의 심화 단계."]},
+{id:"y08",c:"y",st:"yin",bp:["relax","spine"],ko:"아기 자세",en:"Balasana",h:[42,94],l:[[[86,98],[68,88],[48,94]],[[68,98],[88,98]],[[48,95],[30,100]]],
+ g:["휴식·허리 이완","무릎을 꿇고 상체를 앞으로 접어 이마를 바닥에 두고, 호흡이 등 뒤로 퍼지는 것을 느낍니다.","시퀀스 중간 언제든 돌아올 수 있는 휴식처."]},
+{id:"y09",c:"y",st:"hat",bp:["spine"],ko:"고양이 자세",en:"Marjaryasana",h:[35,84],l:[[[40,76],[57,62],[74,78]],[[40,76],[40,100]],[[74,78],[74,100]]],
+ g:["척추 굴곡·분절","네발기기에서 숨을 내쉬며 등을 둥글게 말아 올리고 시선은 배꼽을 향합니다.","꼬리뼈→허리→등→목 순서로 분절하며 움직이세요."]},
+{id:"y10",c:"y",st:"hat",bp:["spine"],ko:"소 자세",en:"Bitilasana",h:[34,70],l:[[[40,78],[57,86],[74,78]],[[40,78],[40,100]],[[74,78],[74,100]]],
+ g:["척추 신전·가슴 열기","네발기기에서 숨을 마시며 배를 내리고 가슴과 시선을 들어 올립니다.","고양이 자세와 짝지어 워밍업으로 5~8회 반복."]},
+{id:"y11",c:"y",st:"vin",bp:["core","upper"],ko:"차투랑가",en:"Chaturanga Dandasana",h:[26,76],l:[[[34,82],[88,88]],[[34,82],[42,92],[38,100]],[[88,88],[91,100]]],
+ g:["삼두·코어","플랭크에서 팔꿈치를 갈비뼈에 붙인 채 몸을 한 판자로 유지하며 낮춥니다.","팔꿈치 90도에서 멈추기. 어깨가 팔꿈치보다 낮아지지 않게."]},
+{id:"y12",c:"y",st:"vin",bp:["full","lower"],ko:"전사 1",en:"Virabhadrasana I",h:[60,16],l:[[[60,24],[60,56]],[[60,32],[54,10]],[[60,32],[66,10]],[[60,56],[44,78],[42,100]],[[60,56],[82,100]]],
+ g:["하체·고관절 굴곡근","앞무릎을 90도로 굽히고 뒷발은 사선으로 디딘 채, 골반을 정면으로 두고 양팔을 위로 뻗습니다.","뒷다리 안쪽을 길게 늘이는 느낌으로 바닥을 밀어내세요."]},
+{id:"y13",c:"y",st:"vin",bp:["full","lower"],ko:"전사 2",en:"Virabhadrasana II",h:[60,22],l:[[[60,30],[60,56]],[[60,36],[32,36]],[[60,36],[88,36]],[[60,56],[42,78],[40,100]],[[60,56],[84,100]]],
+ g:["하체·고관절 외회전","골반과 가슴을 측면으로 열고 양팔을 어깨높이로 뻗어 앞 손끝을 응시합니다.","앞무릎이 안으로 무너지지 않게 둘째 발가락 방향으로."]},
+{id:"y14",c:"y",st:"vin",bp:["bal","core"],ko:"전사 3",en:"Virabhadrasana III",h:[16,46],l:[[[24,50],[54,56]],[[54,56],[52,100]],[[54,56],[90,52]],[[30,50],[10,42]]],
+ g:["밸런스·후면 사슬","한 다리로 서서 상체와 뒷다리가 바닥과 평행한 T자가 되도록 뻗습니다.","골반이 열리지 않게 양쪽 골반을 바닥과 수평으로."]},
+{id:"y15",c:"y",st:"vin",bp:["full"],ko:"리버스 워리어",en:"Viparita Virabhadrasana",h:[52,20],l:[[[56,30],[60,56]],[[54,32],[42,12]],[[56,34],[76,60]],[[60,56],[42,78],[40,100]],[[60,56],[84,100]]],
+ g:["옆구리 신장","전사 2에서 앞 팔을 하늘로 들어 올리고 뒷손은 뒷다리에 가볍게 얹어 옆구리를 늘립니다.","무게는 그대로 앞무릎에. 허리를 꺾는 게 아니라 옆선을 늘이기."]},
+{id:"y16",c:"y",st:"vin",bp:["lower","core"],ko:"사이드 앵글",en:"Utthita Parsvakonasana",h:[36,42],l:[[[58,58],[40,46]],[[58,58],[42,78],[40,100]],[[58,58],[84,100]],[[44,48],[40,76]],[[44,48],[20,30]]],
+ g:["하체·옆구리","전사 2 하체에서 앞팔을 허벅지나 바닥에 두고, 윗팔을 귀 옆으로 뻗어 뒷발날부터 손끝까지 한 사선을 만듭니다.","가슴이 바닥을 보지 않게 하늘 쪽으로 회전."]},
+{id:"y17",c:"y",st:"hat",bp:["lower"],ko:"삼각 자세",en:"Trikonasana",h:[40,26],l:[[[60,56],[44,34]],[[60,56],[38,100]],[[60,56],[82,100]],[[46,38],[40,74]],[[46,38],[52,12]]],
+ g:["햄스트링·옆구리","양다리를 편 채 고관절부터 옆으로 기울여 아래손은 정강이에, 윗팔은 하늘로 뻗습니다.","몸이 두 장의 유리판 사이에 있다고 상상하며 한 평면 유지."]},
+{id:"y18",c:"y",st:"hat",bp:["lower"],ko:"피라미드",en:"Parsvottanasana",h:[34,72],l:[[[58,56],[40,100]],[[58,56],[80,100]],[[58,56],[38,68]],[[40,68],[42,92]]],
+ g:["햄스트링 집중 신장","양다리를 곧게 편 전후 스탠스에서 고관절부터 접어 상체를 앞다리 위로 숙입니다.","등을 둥글게 말기보다 척추를 길게 유지한 채 내려가기."]},
+{id:"y19",c:"y",st:"hat",bp:["lower","hip"],ko:"와이드 전굴",en:"Prasarita Padottanasana",h:[60,84],l:[[[60,58],[38,100]],[[60,58],[82,100]],[[60,58],[60,80]],[[60,76],[54,98]],[[60,76],[66,98]]],
+ g:["내전근·햄스트링","다리를 넓게 벌리고 고관절부터 접어 정수리가 바닥을 향하게 합니다.","체중이 뒤꿈치로 빠지지 않게 발 중앙에."]},
+{id:"y20",c:"y",st:"hat",bp:["hip","lower"],ko:"화환 자세",en:"Malasana",h:[60,40],l:[[[60,48],[60,70]],[[60,70],[44,76],[48,100]],[[60,70],[76,76],[72,100]],[[60,54],[52,62]],[[60,54],[68,62]]],
+ g:["고관절·발목 가동성","발을 어깨너비로 벌려 깊이 쪼그려 앉고 합장한 팔꿈치로 무릎 안쪽을 가볍게 밉니다.","뒤꿈치가 뜨면 담요를 받쳐 주세요."]},
+{id:"y21",c:"y",st:"vin",bp:["hip"],ko:"로우 런지",en:"Anjaneyasana",h:[63,30],l:[[[62,38],[60,68]],[[62,42],[58,14]],[[60,68],[45,82],[45,100]],[[60,68],[76,98]],[[76,98],[92,98]]],
+ g:["장요근·고관절 전면","뒷무릎을 바닥에 두고 골반을 앞·아래로 가라앉히며 양팔을 위로 뻗습니다.","허리가 꺾이지 않게 아랫배를 살짝 조인 채로."]},
+{id:"y22",c:"y",st:"vin",bp:["hip","core"],ko:"트위스트 런지",en:"Parivrtta Anjaneyasana",h:[58,38],l:[[[60,66],[58,46]],[[60,66],[45,80],[45,100]],[[60,66],[88,96]],[[58,50],[44,62]],[[58,50],[70,36]]],
+ g:["흉추 회전·코어","런지 하체를 고정하고 숨을 내쉬며 상체를 앞다리 쪽으로 비틀어 가슴을 엽니다.","회전은 허리가 아닌 가슴(흉추)에서."]},
+{id:"y23",c:"y",st:"vin",bp:["hip"],ko:"도마뱀 자세",en:"Utthan Pristhasana",h:[36,70],l:[[[60,72],[40,76]],[[42,78],[34,100]],[[46,80],[40,100]],[[60,72],[50,84],[48,100]],[[60,72],[92,96]],
+],g:["고관절 깊은 이완","런지에서 양손(또는 전완)을 앞발 안쪽 바닥에 내리고 골반을 가라앉힙니다.","호흡할수록 깊어지는 자세. 1분 이상 머물러도 좋아요."]},
+{id:"y24",c:"y",st:"hat",bp:["bal"],ko:"나무 자세",en:"Vrksasana",h:[60,14],l:[[[60,22],[60,58]],[[60,30],[52,12]],[[60,30],[68,12]],[[60,58],[60,100]],[[60,58],[72,70],[61,80]]],
+ g:["밸런스·발목 안정화","한 발을 반대 다리 허벅지 안쪽에 대고 한 점을 응시하며 균형을 잡습니다.","발을 무릎 옆에는 대지 않기. 허벅지나 종아리에."]},
+{id:"y25",c:"y",st:"hat",bp:["bal"],ko:"독수리 자세",en:"Garudasana",h:[60,18],l:[[[60,26],[58,58]],[[58,58],[56,80],[58,100]],[[58,58],[66,72],[54,84]],[[60,32],[70,42],[62,50]]],
+ g:["밸런스·어깨 후면","다리와 팔을 각각 꼬아 감고 무릎을 굽혀 앉듯 균형을 잡습니다.","견갑 사이가 시원하게 늘어나는 자세. 시선은 한 점에."]},
+{id:"y26",c:"y",st:"hat",bp:["bal","spine"],ko:"댄서 자세",en:"Natarajasana",h:[42,22],l:[[[46,30],[56,56]],[[56,56],[56,100]],[[56,56],[76,46],[70,26]],[[48,34],[26,28]],[[50,34],[70,28]]],
+ g:["밸런스·가슴 열기","한 손으로 같은 쪽 발등을 잡고 발로 손을 밀어내며 가슴을 앞·위로 띄웁니다.","발로 손을 '미는' 힘이 균형의 핵심입니다."]},
+{id:"y27",c:"y",st:"hat",bp:["bal"],ko:"하프문",en:"Ardha Chandrasana",h:[16,48],l:[[[24,52],[52,56]],[[52,56],[50,100]],[[52,56],[88,50]],[[30,52],[28,82]],[[30,52],[32,24]]],
+ g:["밸런스·둔근","한 손을 바닥(또는 블록)에 짚고 뒷다리를 골반 높이로 들어 몸을 측면으로 엽니다.","뜬 다리의 발끝까지 힘을 보내면 흔들림이 줄어요."]},
+{id:"y28",c:"y",st:"hat",bp:["bal","lower"],ko:"핸드 투 토",en:"Utthita Hasta Padangusthasana",h:[54,16],l:[[[54,24],[54,58]],[[54,58],[54,100]],[[54,58],[84,52]],[[54,30],[82,50]],[[54,30],[42,44]]],
+ g:["밸런스·햄스트링","선 자세에서 한쪽 엄지발가락을 잡고 다리를 앞으로 뻗습니다.","다리 높이보다 척추를 곧게 세우는 것이 우선."]},
+{id:"y29",c:"y",st:"yin",bp:["hip"],ko:"비둘기 자세",en:"Eka Pada Rajakapotasana",h:[54,46],l:[[[55,54],[58,84]],[[58,84],[44,94],[56,98]],[[58,84],[88,97]],[[55,60],[48,84]]],
+ g:["둔근·이상근 이완","앞다리는 접고 뒷다리는 길게 뻗어 골반을 바닥으로 가라앉힙니다.","골반이 기울면 접은 다리 쪽에 담요를 받치세요."]},
+{id:"y30",c:"y",st:"hat",bp:["spine"],ko:"낙타 자세",en:"Ustrasana",h:[70,44],l:[[[55,74],[62,58],[68,50]],[[55,74],[53,100]],[[53,100],[72,100]],[[62,56],[70,86]]],
+ g:["가슴·어깨 전면 열기","무릎서기에서 골반을 앞으로 민 채 가슴을 들어 올리며 손을 뒤꿈치로 보냅니다.","허리를 꺾지 말고 가슴(흉추)을 들어 올리는 후굴."]},
+{id:"y31",c:"y",st:"vin",bp:["core"],ko:"보트 자세",en:"Navasana",h:[44,50],l:[[[60,86],[47,58]],[[60,86],[82,58]],[[50,64],[70,64]]],
+ g:["복부·고관절 굴곡근","좌골로 균형 잡고 다리와 상체를 들어 V자를 만들며 팔은 앞으로 뻗습니다.","허리가 말리면 무릎을 굽힌 변형으로."]},
+{id:"y32",c:"y",st:"hat",bp:["spine","lower"],ko:"다리 자세",en:"Setu Bandhasana",h:[31,96],l:[[[38,95],[64,72]],[[64,72],[72,80],[74,100]],[[42,98],[60,99]]],
+ g:["둔근·가슴 열기","무릎을 세우고 누워 발로 바닥을 누르며 골반부터 들어 올립니다.","무릎이 벌어지지 않게 허벅지 안쪽 힘 유지."]},
+{id:"y33",c:"y",st:"hat",bp:["spine"],ko:"물고기 자세",en:"Matsyasana",h:[32,92],l:[[[38,90],[50,78],[62,92]],[[62,92],[94,94]],[[52,90],[60,98]]],
+ g:["가슴·목 전면 열기","팔꿈치로 바닥을 누르며 가슴을 천장으로 들어 올리고 정수리를 가볍게 바닥에 둡니다.","어깨서기·쟁기 후의 카운터 포즈."]},
+{id:"y34",c:"y",st:"hat",bp:["spine"],ko:"메뚜기 자세",en:"Salabhasana",h:[36,80],l:[[[46,86],[66,92]],[[66,92],[92,82]],[[48,87],[66,80]]],
+ g:["등·둔근 강화","엎드려 숨을 마시며 가슴과 양다리를 동시에 바닥에서 들어 올립니다.","높이보다 '길이'. 손끝과 발끝을 멀리 보내기."]},
+{id:"y35",c:"y",st:"hat",bp:["spine"],ko:"활 자세",en:"Dhanurasana",h:[34,72],l:[[[40,80],[58,90],[74,80]],[[74,80],[80,64]],[[42,78],[78,66]]],
+ g:["전신 전면 열기","엎드려 양 발목을 잡고 발로 손을 밀어내며 가슴과 허벅지를 들어 올립니다.","무릎이 골반 너비보다 벌어지지 않게."]},
+{id:"y36",c:"y",st:"yin",bp:["spine"],ko:"스핑크스",en:"Sphinx Pose",h:[40,62],l:[[[46,70],[58,84],[72,92]],[[72,92],[95,95]],[[46,72],[42,86]],[[42,86],[28,86]]],
+ g:["허리의 부드러운 신전","팔꿈치를 어깨 아래 두고 전완으로 바닥을 누르며 가슴을 엽니다.","인 요가에서 3~5분 유지하는 대표 후굴."]},
+{id:"y37",c:"y",st:"hat",bp:["core"],ko:"게이트 자세",en:"Parighasana",h:[48,38],l:[[[58,72],[50,46]],[[58,72],[58,100]],[[58,100],[72,100]],[[58,72],[34,96]],[[52,50],[36,38]],[[52,50],[42,80]]],
+ g:["옆구리 신장","무릎서기에서 한 다리를 옆으로 뻗고 반대 팔을 머리 위로 넘겨 옆선을 늘입니다.","골반이 뒤로 빠지지 않게 정면 유지."]},
+{id:"y38",c:"y",st:"hat",bp:["lower","spine"],ko:"앉은 전굴",en:"Paschimottanasana",h:[76,72],l:[[[55,95],[90,94]],[[55,95],[72,78]],[[70,80],[88,90]]],
+ g:["몸 뒤쪽 전체 이완","앉아 다리를 뻗고 고관절부터 접어 상체를 다리 위로 포갭니다.","손이 발에 닿는 것보다 배가 허벅지에 가까운 게 우선."]},
+{id:"y39",c:"y",st:"yin",bp:["hip"],ko:"나비 자세",en:"Baddha Konasana",h:[60,50],l:[[[60,58],[60,88]],[[60,88],[46,94],[59,100]],[[60,88],[74,94],[61,100]],[[60,64],[57,94]]],
+ g:["고관절 내측 이완","발바닥을 맞대고 앉아 무릎을 바닥 쪽으로 무겁게 떨어뜨립니다.","무릎을 누르지 말고 시간과 호흡으로 열기."]},
+{id:"y40",c:"y",st:"hat",bp:["upper","hip"],ko:"소얼굴 자세",en:"Gomukhasana",h:[58,42],l:[[[58,50],[58,84]],[[58,84],[46,92],[60,98]],[[58,84],[70,92],[56,98]],[[58,54],[66,40]],[[58,70],[66,56]]],
+ g:["어깨·고관절 동시 이완","무릎을 포개 앉고 한 팔은 위에서, 한 팔은 아래에서 등 뒤로 보내 맞잡습니다.","손이 안 닿으면 수건을 양손에 잡고 연결."]},
+{id:"y41",c:"y",st:"hat",bp:["spine"],ko:"앉은 비틀기",en:"Ardha Matsyendrasana",h:[57,50],l:[[[58,58],[58,92]],[[58,92],[70,76],[70,100]],[[58,96],[44,99]],[[58,64],[73,76]],[[58,64],[46,90]]],
+ g:["척추 회전·소화 자극","한 무릎을 세워 반대 팔꿈치를 걸고, 숨을 마실 때 척추를 세우고 내쉴 때 비틉니다.","비틀기는 아래(허리)가 아니라 위(가슴)부터."]},
+{id:"y42",c:"y",st:"hat",bp:["spine"],ko:"토끼 자세",en:"Sasangasana",h:[40,92],l:[[[58,100],[62,76]],[[62,76],[46,88]],[[58,100],[78,100]],[[48,90],[64,98]]],
+ g:["목·등 상부 신장","무릎 꿇고 정수리를 바닥에 댄 채 엉덩이를 들어 등을 둥글게 말아줍니다.","목에 체중을 싣지 않게 손으로 뒤꿈치를 잡아 지지."]},
+{id:"y43",c:"y",st:"hat",bp:["spine"],ko:"쟁기 자세",en:"Halasana",h:[34,96],l:[[[44,94],[53,68]],[[53,68],[26,88]],[[46,97],[66,98]]],
+ g:["척추 후면 깊은 신장","누워 다리를 머리 뒤로 넘겨 발끝을 바닥에 둡니다.","목은 절대 좌우로 돌리지 않기. 목 디스크가 있다면 생략."]},
+{id:"y44",c:"y",st:"hat",bp:["spine","upper"],ko:"어깨서기",en:"Sarvangasana",h:[36,97],l:[[[44,94],[52,62]],[[52,62],[56,24]],[[46,96],[54,80]]],
+ g:["순환·갑상선 자극","어깨로 서서 손으로 등을 받치고 다리를 천장으로 곧게 뻗습니다.","체중은 목이 아닌 어깨와 팔꿈치에."]},
+{id:"y45",c:"y",st:"vin",bp:["core"],ko:"사이드 플랭크",en:"Vasisthasana",h:[42,58],l:[[[44,68],[38,100]],[[44,68],[88,92]],[[44,68],[48,40]]],
+ g:["측면 코어·손목","한 손과 발날로 지지하며 골반을 천장 쪽으로 들어 올립니다.","골반이 가라앉지 않게 옆구리를 계속 끌어올리기."]},
+{id:"y46",c:"y",st:"yin",bp:["spine","relax"],ko:"누운 비틀기",en:"Supta Matsyendrasana",h:[28,90],l:[[[36,92],[62,92]],[[62,92],[74,80],[88,86]],[[46,92],[46,76]]],
+ g:["허리·둔근 이완","누워 한 무릎을 반대편 바닥으로 넘기고 양 어깨는 바닥에 둡니다.","무릎이 떠도 괜찮아요. 어깨가 뜨지 않는 게 우선."]},
+{id:"y47",c:"y",st:"yin",bp:["hip","relax"],ko:"행복한 아기",en:"Ananda Balasana",h:[30,94],l:[[[38,96],[60,96]],[[60,96],[66,74],[60,62]],[[62,96],[72,76],[66,64]],[[44,92],[58,64]]],
+ g:["고관절·허리 이완","누워 무릎을 겨드랑이 쪽으로 당기고 발바닥을 천장으로 향해 양발을 잡습니다.","꼬리뼈가 바닥에서 뜨지 않게 부드럽게 당기기."]},
+{id:"y48",c:"y",st:"yin",bp:["hip","relax"],ko:"누운 나비",en:"Supta Baddha Konasana",h:[28,94],l:[[[36,96],[62,96]],[[62,96],[74,84],[84,94]],[[44,96],[52,102]]],
+ g:["골반 이완·휴식","누운 채 발바닥을 맞대고 무릎을 양옆으로 떨어뜨립니다.","무릎 아래 블록을 받치면 더 깊이 이완됩니다."]},
+{id:"y49",c:"y",st:"yin",bp:["relax"],ko:"비파리타 카라니",en:"Viparita Karani",h:[28,94],l:[[[36,96],[62,96]],[[62,96],[64,52]],[[44,96],[52,102]]],
+ g:["다리 부종·피로 회복","벽이나 허공에 다리를 올리고 팔과 어깨의 힘을 완전히 풉니다.","수련 마무리나 자기 전 5~10분."]},
+{id:"y50",c:"y",st:"yin",bp:["relax"],ko:"사바아사나",en:"Savasana",h:[24,92],l:[[[32,95],[80,95]],[[80,95],[95,91]],[[80,95],[95,99]],[[40,96],[52,101]]],
+ g:["완전한 이완","팔다리를 편안히 펼치고 호흡을 통제하지 않은 채 몸 전체의 무게를 바닥에 맡깁니다.","모든 시퀀스의 마지막. 최소 3~5분."]},
+
+/* ─────────── 필라테스 (33) ─────────── */
+{id:"p01",c:"p",bp:["core"],ko:"헌드레드",en:"The Hundred",h:[30,85],l:[[[36,92],[62,95]],[[62,95],[88,77]],[[40,90],[58,85]]],
+ g:["복부 지구력·호흡","상체를 말아 올리고 다리를 사선으로 뻗은 채 팔을 위아래로 펌핑하며 5호흡 마시고 5호흡 내쉬기를 10회 반복합니다.","허리가 뜨면 다리를 더 높이거나 무릎을 굽히세요."]},
+{id:"p02",c:"p",bp:["core","spine"],ko:"롤업",en:"Roll Up",h:[71,66],l:[[[58,95],[90,95]],[[58,95],[68,72]],[[66,75],[84,84]]],
+ g:["복부·척추 분절","누운 자세에서 척추를 한 마디씩 바닥에서 떼며 천천히 일어나 발끝을 향해 뻗습니다.","반동 없이. 올라가기 힘들면 무릎을 살짝 굽혀도 OK."]},
+{id:"p03",c:"p",bp:["core","spine"],ko:"롤오버",en:"Roll Over",h:[36,96],l:[[[46,94],[54,70]],[[54,70],[28,80]],[[48,97],[66,98]]],
+ g:["하복부·척추 가동성","다리를 모아 머리 뒤로 넘겼다가 척추를 한 마디씩 내리며 돌아옵니다.","목에 무게가 실리면 가동범위를 줄이세요."]},
+{id:"p04",c:"p",bp:["core","hip"],ko:"싱글 레그 서클",en:"One Leg Circle",h:[29,93],l:[[[36,95],[70,95]],[[70,95],[93,95]],[[70,95],[66,60]]],pr:{t:"dash",x:66,y:54,r:8},
+ g:["골반 안정성","한 다리를 천장으로 뻗어 골반을 고정한 채 다리로 원을 그립니다.","원이 커질수록 골반이 흔들리지 않는 범위에서."]},
+{id:"p05",c:"p",bp:["core","spine"],ko:"롤링 라이크 어 볼",en:"Rolling Like a Ball",h:[57,60],l:[[[46,90],[40,73],[51,61]],[[46,90],[62,80],[56,66]],[[53,65],[58,84]]],
+ g:["척추 마사지·균형","공처럼 둥글게 몸을 만 채 뒤로 굴렀다가 제자리로 돌아와 균형을 잡습니다.","구르는 동안 C커브를 풀지 않는 것이 핵심."]},
+{id:"p06",c:"p",bp:["core"],ko:"싱글 레그 스트레치",en:"Single Leg Stretch",h:[31,85],l:[[[38,92],[62,95]],[[62,95],[90,82]],[[62,95],[52,78],[44,86]],[[42,89],[51,79]]],
+ g:["복부·코디네이션","상체를 말아 올린 채 한 무릎은 당기고 반대 다리는 길게 뻗기를 교차합니다.","상체 높이를 끝까지 유지하는 게 포인트."]},
+{id:"p07",c:"p",bp:["core"],ko:"더블 레그 스트레치",en:"Double Leg Stretch",h:[33,86],l:[[[40,92],[62,95]],[[62,95],[90,78]],[[42,91],[18,79]]],
+ g:["복부·신체 컨트롤","숨을 마시며 팔다리를 멀리 뻗고, 내쉬며 팔로 크게 원을 그려 무릎을 안습니다.","팔다리가 멀어질수록 허리는 바닥에 단단히."]},
+{id:"p08",c:"p",bp:["core"],ko:"크리스크로스",en:"Criss Cross",h:[35,83],l:[[[41,91],[60,95]],[[60,95],[90,87]],[[60,95],[50,77],[42,83]],[[41,88],[49,80]]],
+ g:["복사근","손을 머리 뒤에 두고 팔꿈치와 반대 무릎이 만나도록 상체를 회전합니다.","팔꿈치가 아니라 갈비뼈가 회전하도록."]},
+{id:"p09",c:"p",bp:["spine"],ko:"스파인 스트레치",en:"Spine Stretch Forward",h:[64,60],l:[[[55,95],[90,95]],[[55,95],[61,67]],[[59,70],[82,79]]],
+ g:["척추 분절·햄스트링","다리를 어깨너비로 뻗고 앉아 정수리부터 한 마디씩 앞으로 말아 내려갑니다.","앞으로 '눕는' 게 아니라 위로 '커지며' 말기."]},
+{id:"p10",c:"p",bp:["core"],ko:"티저",en:"Teaser",h:[39,56],l:[[[58,92],[43,63]],[[58,92],[84,61]],[[45,66],[68,71]]],
+ g:["복부 컨트롤의 정점","다리를 사선으로 뻗은 채 상체를 말아 올려 V자에서 정지합니다.","어렵다면 무릎을 굽히거나 한 다리씩."]},
+{id:"p11",c:"p",bp:["spine"],ko:"스완",en:"Swan",h:[41,67],l:[[[65,96],[47,74]],[[65,96],[92,97]],[[49,78],[43,97]]],
+ g:["등 신전근","엎드려 손으로 바닥을 누르며 가슴을 길게 들어 올립니다.","목부터 꺾지 말고 가슴이 앞으로 미끄러지듯."]},
+{id:"p12",c:"p",bp:["spine","core"],ko:"소우",en:"Saw",h:[66,59],l:[[[58,95],[86,89]],[[58,95],[88,99]],[[58,95],[63,66]],[[61,70],[84,88]],[[61,70],[42,78]]],
+ g:["회전+굴곡 복합","다리를 벌리고 앉아 몸을 비틀며 새끼손가락이 반대 새끼발가락을 '톱질하듯' 지나갑니다.","양쪽 좌골이 바닥에서 뜨지 않게."]},
+{id:"p13",c:"p",bp:["hip","lower"],ko:"사이드 킥",en:"Side Kick",h:[28,84],l:[[[34,90],[62,91]],[[62,91],[89,96]],[[62,91],[90,77]],[[35,89],[28,96]]],
+ g:["둔근·골반 안정성","옆으로 누워 몸통을 고정한 채 윗다리를 앞뒤로 차듯 움직입니다.","다리가 움직여도 몸통은 흔들리지 않게."]},
+{id:"p14",c:"p",bp:["spine","lower"],ko:"숄더 브릿지",en:"Shoulder Bridge",h:[33,96],l:[[[39,95],[64,73]],[[64,73],[71,81],[73,100]],[[64,73],[81,49]],[[42,98],[58,99]]],
+ g:["둔근·햄스트링","브릿지 자세에서 골반 높이를 유지한 채 한 다리를 천장으로 차올립니다.","다리가 내려올 때 골반이 함께 떨어지지 않게."]},
+{id:"p15",c:"p",bp:["spine"],ko:"스위밍",en:"Swimming",h:[40,86],l:[[[47,93],[68,94]],[[47,93],[23,83]],[[68,94],[92,84]]],
+ g:["등 전체·지구력","엎드려 팔다리를 들고 수영하듯 반대 팔·다리를 교차로 퍼덕입니다.","몸통은 고요하게, 팔다리만 가볍게."]},
+{id:"p16",c:"p",bp:["core","upper"],ko:"레그 풀 프론트",en:"Leg Pull Front",h:[29,68],l:[[[36,74],[36,100]],[[36,74],[78,88]],[[78,88],[92,100]],[[78,88],[95,79]]],
+ g:["코어+어깨 안정성","플랭크에서 골반 높이를 유지한 채 한 다리를 들어 올립니다.","다리를 드는 순간 골반이 회전하지 않게."]},
+{id:"p17",c:"p",bp:["core","upper"],ko:"레그 풀 백",en:"Leg Pull Back",h:[30,66],l:[[[38,74],[80,90]],[[38,74],[34,100]],[[80,90],[92,68]]],
+ g:["몸 뒤쪽 사슬·어깨","리버스 플랭크에서 골반을 띄운 채 한 다리를 천장으로 차올립니다.","골반이 떨어지지 않게 둔근으로 계속 밀어 올리기."]},
+{id:"p18",c:"p",bp:["core"],ko:"넥 풀",en:"Neck Pull",h:[68,64],l:[[[56,95],[90,95]],[[56,95],[66,70]],[[66,72],[58,62]],[[66,72],[76,60]]],
+ g:["복부·척추 분절 심화","손을 머리 뒤에 둔 채 롤업처럼 일어나고, 척추를 길게 세웠다 다시 말아 내려갑니다.","손으로 목을 당기지 않기. 손은 받침일 뿐."]},
+{id:"p19",c:"p",bp:["spine"],ko:"더블 레그 킥",en:"Double Leg Kick",h:[38,86],l:[[[45,92],[68,93]],[[68,93],[80,86]],[[80,86],[76,70]],[[50,90],[60,84]]],
+ g:["햄스트링·등 신전","엎드려 손을 등 뒤에 얹고 양 무릎을 세 번 차듯 굽혔다가, 다리를 뻗으며 가슴을 들어 올립니다.","찰 때는 골반이 바닥에서 뜨지 않게."]},
+{id:"p20",c:"p",bp:["core"],ko:"시저스",en:"Scissors",h:[29,93],l:[[[36,95],[66,95]],[[66,95],[58,58]],[[66,95],[90,72]],[[44,91],[58,72]]],
+ g:["햄스트링·복부","두 다리를 가위처럼 교차해 한 다리는 당기고 한 다리는 멀리 뻗습니다.","두 다리 모두 곧게. 당길 때 두 번 살짝 펄스."]},
+{id:"p21",c:"p",bp:["core"],ko:"잭나이프",en:"Jack Knife",h:[32,96],l:[[[42,94],[52,72]],[[52,72],[70,38]],[[44,97],[64,98]]],
+ g:["하복부 파워","다리를 머리 뒤로 넘겼다가 천장을 향해 사선으로 차올린 뒤 컨트롤하며 내려옵니다.","올릴 때 폭발적으로, 내릴 때 천천히."]},
+{id:"p22",c:"p",bp:["core","hip"],ko:"힙 트위스트",en:"Hip Twist",h:[42,54],l:[[[58,88],[46,62]],[[48,66],[40,92]],[[58,88],[80,62]]],pr:{t:"dash",x:82,y:58,r:7},
+ g:["복사근·고관절","손으로 뒤를 짚고 앉아 모은 두 다리로 공중에 원을 그립니다.","원을 그리는 동안 상체는 미동도 없이."]},
+{id:"p23",c:"p",bp:["lower"],ko:"바이시클",en:"Bicycle",h:[34,96],l:[[[42,93],[52,66]],[[52,66],[64,50]],[[52,66],[44,52],[52,40]],[[44,95],[52,80]]],
+ g:["고관절 분리·컨트롤","어깨서기 지지 자세에서 자전거를 타듯 두 다리를 크게 교차합니다.","원은 무릎이 아니라 고관절에서 크게."]},
+{id:"p24",c:"p",bp:["core"],ko:"사이드 밴드",en:"Side Bend",h:[40,52],l:[[[44,64],[38,100]],[[44,64],[70,76],[88,94]],[[44,64],[30,46]]],
+ g:["측면 사슬 전체","옆으로 앉은 자세에서 한 팔로 밀어 올라가 몸 옆면으로 무지개를 그립니다.","골반을 천장으로 들어 올리는 힘이 핵심."]},
+{id:"p25",c:"p",bp:["upper","core"],ko:"필라테스 푸시업",en:"Pilates Push Up",h:[27,72],l:[[[35,78],[88,90]],[[35,78],[42,90],[38,100]],[[88,90],[91,100]]],
+ g:["삼두·가슴·코어","팔꿈치를 몸통에 붙인 채 좁은 푸시업을 수행합니다.","내려가는 깊이보다 몸통이 한 판자인 것이 우선."]},
+{id:"p26",c:"p",bp:["spine"],ko:"스탠딩 롤다운",en:"Standing Roll Down",h:[44,82],l:[[[60,56],[60,100]],[[64,56],[64,100]],[[62,56],[50,64],[46,76]],[[48,70],[50,90]]],
+ g:["척추 분절 워밍업","선 자세에서 머리부터 한 마디씩 말아 내려갔다가 꼬리뼈부터 쌓아 올라옵니다.","수업 시작과 끝에 쓰기 좋은 체크인 동작."]},
+{id:"p27",c:"p",bp:["hip"],ko:"클램",en:"Clam",h:[27,86],l:[[[34,90],[60,90]],[[60,91],[74,95],[64,100]],[[60,91],[72,82],[62,88]],[[34,89],[28,96]]],
+ g:["중둔근 활성화","옆으로 누워 발을 붙인 채 윗무릎만 조개처럼 열고 닫습니다.","골반이 뒤로 넘어가지 않게 고정하고 작게라도 정확히."]},
+{id:"p28",c:"p",bp:["lower","hip"],ko:"사이드 레그 리프트",en:"Side Leg Lift",h:[28,84],l:[[[34,90],[62,91]],[[62,91],[90,95]],[[62,91],[86,68]],[[35,89],[28,96]]],
+ g:["둔근·내전근","옆으로 누워 몸을 일직선으로 만들고 윗다리를 길게 들어 올립니다.","다리를 '높이'보다 '멀리' 보내는 느낌으로."]},
+{id:"p29",c:"p",bp:["spine","lower"],ko:"펠빅 컬",en:"Pelvic Curl",h:[31,96],l:[[[38,96],[60,84]],[[60,84],[68,80],[70,100]],[[42,98],[58,99]]],
+ g:["척추 분절·둔근","무릎을 세우고 누워 꼬리뼈부터 한 마디씩 말아 올렸다가 가슴부터 내려옵니다.","모든 매트 수업의 기본 워밍업."]},
+{id:"p30",c:"p",bp:["core"],ko:"데드버그",en:"Dead Bug",h:[28,94],l:[[[36,96],[62,96]],[[62,96],[90,84]],[[62,96],[64,76],[72,76]],[[40,96],[16,86]],[[44,96],[46,78]]],
+ g:["코어 안정화","누워 반대쪽 팔과 다리를 동시에 멀리 뻗었다가 제자리로 돌아옵니다.","허리와 바닥 사이 공간이 변하지 않게."]},
+{id:"p31",c:"p",bp:["core","spine"],ko:"버드독",en:"Bird Dog",h:[33,70],l:[[[40,76],[74,78]],[[40,76],[40,100]],[[74,78],[74,100]],[[40,76],[16,68]],[[74,78],[98,70]]],
+ g:["코어·등 안정화","네발기기에서 반대쪽 팔과 다리를 바닥과 평행하게 뻗습니다.","등 위에 물컵이 있다고 상상하며 흔들림 없이."]},
+{id:"p32",c:"p",bp:["core","spine"],ko:"코크스크류",en:"Corkscrew",h:[29,93],l:[[[36,95],[66,95]],[[66,95],[62,60]]],pr:{t:"dash",x:62,y:54,r:8},
+ g:["복사근·하복부","모은 두 다리로 천장에 원을 그리며 양방향으로 번갈아 돕니다.","원이 한쪽으로 갈 때 반대 골반이 뜨지 않게."]},
+{id:"p33",c:"p",bp:["spine"],ko:"머메이드",en:"Mermaid",h:[46,56],l:[[[47,97],[61,91],[72,97]],[[59,91],[50,63]],[[51,66],[36,52]],[[51,66],[63,80]]],
+ g:["옆구리·흉추","측면으로 앉아 한 팔을 머리 위로 넘기며 갈비뼈 사이를 활짝 엽니다.","앞이나 뒤로 무너지지 않는 순수한 측굴."]},
+
+/* ─────────── 리커버링 (10) ─────────── */
+{id:"r01",c:"r",bp:["spine","relax"],ko:"흉추 스트레칭",en:"Thoracic Opener",h:[27,95],l:[[[33,98],[50,87],[68,88],[87,98]],[[36,95],[20,87]]],pr:{t:"ring",x:59,y:93,r:8},
+ g:["굽은 등·흉추 신전","링을 날개뼈 아래에 두고 누워 팔을 머리 위로 보내며 가슴을 활처럼 엽니다.","호흡할 때마다 갈비뼈가 링 위에서 녹는 느낌으로 30초~1분."]},
+{id:"r02",c:"r",bp:["upper","relax"],ko:"목 이완",en:"Neck Release",h:[27,89],l:[[[44,95],[80,95]],[[80,95],[95,95]],[[52,95],[62,100]]],pr:{t:"ring",x:35,y:93,r:6},
+ g:["뒷목·후두하근","링을 목 뒤 움푹한 곳에 두고 누워 머리 무게를 그대로 맡깁니다.","고개를 아주 작게 좌우로 끄덕이면 이완이 깊어집니다."]},
+{id:"r03",c:"r",bp:["lower","relax"],ko:"햄스트링 스트레칭",en:"Hamstring Stretch",h:[28,93],l:[[[35,95],[68,95]],[[68,95],[63,58]],[[43,91],[57,70]]],pr:{t:"ring",x:63,y:53,r:6},
+ g:["햄스트링","누워서 링을 발바닥에 걸고 다리를 천장으로 뻗어 부드럽게 당깁니다.","무릎을 살짝 굽히고 시작해 호흡마다 펴기."]},
+{id:"r04",c:"r",bp:["upper"],ko:"어깨 열기",en:"Shoulder Opener",h:[58,50],l:[[[58,58],[58,90]],[[58,90],[44,97]],[[58,90],[72,97]],[[58,62],[52,38]],[[58,62],[64,38]]],pr:{t:"ring",x:58,y:31,r:7},
+ g:["어깨 가동성","링을 양손에 잡고 머리 위로 올렸다가 가능한 범위에서 뒤로 보냅니다.","팔꿈치가 굽지 않는 범위까지만."]},
+{id:"r05",c:"r",bp:["spine","relax"],ko:"척추 롤링 마사지",en:"Spine Rolling",h:[33,91],l:[[[39,95],[55,85],[69,89]],[[69,89],[80,79],[84,100]]],pr:{t:"ring",x:57,y:91,r:8},
+ g:["척추기립근 마사지","무릎을 세우고 링 위에 등을 댄 채 위아래로 천천히 굴립니다.","아픈 지점에서 멈춰 3회 깊게 호흡."]},
+{id:"r06",c:"r",bp:["core","relax"],ko:"사이드 스트레칭",en:"Side Stretch",h:[46,56],l:[[[58,90],[49,63]],[[58,90],[74,97]],[[51,67],[37,51]],[[51,67],[60,82]]],pr:{t:"ring",x:33,y:47,r:6},
+ g:["옆구리·광배근","링을 한 손에 들고 머리 위로 넘기며 옆구리를 길게 늘입니다.","링의 무게가 스트레칭을 깊게 만들어 줍니다."]},
+{id:"r07",c:"r",bp:["hip","relax"],ko:"골반·천골 이완",en:"Sacrum Release",h:[28,94],l:[[[36,96],[60,92]],[[60,92],[70,80],[74,100]],[[42,96],[52,101]]],pr:{t:"ring",x:56,y:95,r:6},
+ g:["천골·허리 이완","링을 천골(엉치뼈) 아래에 두고 무릎을 세워 골반의 무게를 맡깁니다.","골반을 좌우로 작게 흔들면 마사지 효과."]},
+{id:"r08",c:"r",bp:["spine","upper"],ko:"날개뼈 사이 마사지",en:"Upper Back Release",h:[26,92],l:[[[32,95],[46,87],[60,92]],[[60,92],[72,80],[76,100]],[[40,90],[48,82]]],pr:{t:"ring",x:44,y:92,r:7},
+ g:["승모근·능형근","링을 날개뼈 사이에 두고 팔을 가슴 앞에 모아 등 상부를 엽니다.","팔을 모으면 날개뼈가 벌어져 더 깊이 닿습니다."]},
+{id:"r09",c:"r",bp:["lower","bal"],ko:"발바닥 릴리즈",en:"Foot Release",h:[58,16],l:[[[58,24],[58,60]],[[56,60],[56,100]],[[60,60],[70,80],[72,90]]],pr:{t:"ring",x:74,y:94,r:6},
+ g:["족저근막","서서 한 발을 링 위에 올리고 체중을 실어 앞뒤로 굴립니다.","수련 전 1분이면 발바닥 감각이 깨어납니다."]},
+{id:"r10",c:"r",bp:["spine","upper"],ko:"링 짚고 가슴 열기",en:"Melting Heart w/ Ring",h:[40,78],l:[[[66,100],[84,100]],[[66,100],[68,80]],[[68,80],[46,84]],[[48,84],[34,92]]],pr:{t:"ring",x:30,y:94,r:6},
+ g:["어깨·흉추","무릎 꿇고 양손을 링 위에 얹은 채 가슴을 바닥으로 녹입니다.","겨드랑이가 늘어나는 지점에서 호흡 5회."]},
+
+/* ─────────── 써클링 (12) ─────────── */
+{id:"c01",c:"c2",bp:["upper"],ko:"체스트 프레스",en:"Chest Press",h:[56,16],l:[[[56,24],[56,60]],[[53,60],[53,100]],[[59,60],[59,100]],[[56,32],[73,36]],[[56,36],[73,41]]],pr:{t:"circle",x:80,y:39,r:8},
+ g:["가슴·팔 안쪽","서클을 가슴 앞에서 양손으로 잡고 숨을 내쉬며 천천히 조였다 풉니다.","어깨가 올라가지 않게 견갑을 끌어내린 채."]},
+{id:"c02",c:"c2",bp:["upper"],ko:"오버헤드 프레스",en:"Overhead Press",h:[60,26],l:[[[60,34],[60,62]],[[57,62],[57,100]],[[63,62],[63,100]],[[60,38],[54,16]],[[60,38],[66,16]]],pr:{t:"circle",x:60,y:9,r:8},
+ g:["어깨·옆구리 연결","서클을 머리 위로 들어 올려 조이며 몸통이 흔들리지 않게 버팁니다.","갈비뼈가 앞으로 빠지지 않게 복부 유지."]},
+{id:"c03",c:"c2",bp:["lower","hip"],ko:"이너싸이 스퀴즈",en:"Inner Thigh Squeeze",h:[30,93],l:[[[37,95],[63,95]],[[63,95],[68,73],[76,95]],[[65,95],[73,74],[80,96]]],pr:{t:"circle",x:71,y:72,r:6},
+ g:["내전근","무릎을 세우고 누워 서클을 무릎 사이에 끼우고 내쉬며 조입니다.","조이는 순간 골반저근까지 함께 수축하는 느낌으로."]},
+{id:"c04",c:"c2",bp:["lower","spine"],ko:"브릿지 스퀴즈",en:"Bridge Squeeze",h:[32,96],l:[[[39,95],[63,73]],[[63,73],[71,80],[73,100]],[[42,98],[58,99]]],pr:{t:"circle",x:67,y:75,r:6},
+ g:["둔근+내전근 복합","서클을 무릎 사이에 끼운 채 브릿지로 올라가 위에서 조입니다.","골반 높이가 떨어지지 않는 상태에서 스퀴즈."]},
+{id:"c05",c:"c2",bp:["core"],ko:"헌드레드 써클",en:"Hundred w/ Circle",h:[30,85],l:[[[36,92],[62,95]],[[62,95],[87,78]],[[40,90],[58,85]]],pr:{t:"circle",x:90,y:75,r:6},
+ g:["복부+내전근","헌드레드 자세에서 발목 사이에 서클을 끼워 다리 연결을 강화합니다.","서클 덕분에 다리 정렬이 무너지지 않습니다."]},
+{id:"c06",c:"c2",bp:["lower","hip"],ko:"사이드 레그 프레스",en:"Side-Lying Press",h:[27,85],l:[[[34,91],[62,92]],[[62,92],[90,90]],[[62,92],[88,80]],[[35,90],[28,97]]],pr:{t:"circle",x:91,y:85,r:6},
+ g:["내전근·둔근","옆으로 누워 발목 사이에 서클을 끼우고 윗다리로 아래로 누릅니다.","반대로 아랫다리를 들어 올리면 내전근 집중."]},
+{id:"c07",c:"c2",bp:["core"],ko:"티저 써클",en:"Teaser w/ Circle",h:[39,56],l:[[[58,92],[43,63]],[[58,92],[84,61]],[[45,66],[66,69]]],pr:{t:"circle",x:72,y:69,r:6},
+ g:["복부+상체 연결","티저 자세에서 서클을 양손에 들어 팔과 복부의 연결을 강화합니다.","서클을 다리 쪽으로 뻗으면 난도가 올라갑니다."]},
+{id:"c08",c:"c2",bp:["upper","core"],ko:"스탠딩 사이드 프레스",en:"Standing Side Press",h:[58,16],l:[[[58,24],[58,60]],[[55,60],[55,100]],[[61,60],[61,100]],[[58,32],[72,48]],[[58,32],[50,56]]],pr:{t:"circle",x:77,y:53,r:7},
+ g:["팔·옆구리","서클을 골반 옆에 대고 한 손으로 눌러 조입니다.","몸이 기울지 않게 반대 옆구리로 버티기."]},
+{id:"c09",c:"c2",bp:["lower"],ko:"플리에 스퀴즈",en:"Plié Squeeze",h:[60,20],l:[[[60,28],[60,58]],[[60,58],[46,74],[48,100]],[[60,58],[74,74],[72,100]],[[60,34],[44,40]],[[60,34],[76,40]]],pr:{t:"circle",x:60,y:76,r:7},
+ g:["내전근·둔근","와이드 스쿼트로 앉아 허벅지 사이 서클을 내쉬며 조입니다.","무릎과 발끝 방향을 일치시키기."]},
+{id:"c10",c:"c2",bp:["core"],ko:"롤업 써클",en:"Roll Up w/ Circle",h:[71,66],l:[[[58,95],[90,95]],[[58,95],[68,72]],[[66,75],[84,80]]],pr:{t:"circle",x:90,y:80,r:7},
+ g:["복부+어깨 안정","서클을 양손에 들고 롤업을 수행해 팔 라인을 일정하게 유지합니다.","서클이 흔들리면 반동을 쓰고 있다는 신호."]},
+{id:"c11",c:"c2",bp:["spine"],ko:"백 익스텐션 써클",en:"Back Extension",h:[41,67],l:[[[65,96],[47,74]],[[65,96],[92,97]],[[49,78],[30,90]]],pr:{t:"circle",x:24,y:93,r:6},
+ g:["등 신전근","엎드려 서클 위에 양손을 얹고 가슴을 들며 서클을 지그시 누릅니다.","누르는 힘이 어깨를 끌어내려 목을 보호합니다."]},
+{id:"c12",c:"c2",bp:["lower"],ko:"햄스트링 프레스",en:"Hamstring Press",h:[36,88],l:[[[44,94],[70,95]],[[70,95],[84,94]],[[84,94],[78,76]]],pr:{t:"circle",x:81,y:85,r:5},
+ g:["햄스트링","엎드려 발목과 허벅지 뒤 사이에 서클을 끼우고 뒤꿈치로 조입니다.","골반이 뜨지 않게 치골을 바닥에 붙인 채."]}
+];
+const byId=Object.fromEntries(POSES.map(p=>[p.id,p]));
+
+/* ── 동작 일러스트 (포털 파스텔 톤) ── */
+function figSVG(p,opts={}){
+  const ink=opts.ink||"#24343c", acc=opts.acc||"#f372b2";
+  const sw=opts.sw||4.6;
+  let s=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">`;
+  if(opts.floor!==false){
+    s+=`<ellipse cx="60" cy="104" rx="34" ry="3" fill="${opts.shadow||"rgba(117,202,255,.22)"}"/>`;
+    s+=`<line x1="14" y1="104" x2="106" y2="104" stroke="${opts.floorColor||"rgba(36,52,60,.14)"}" stroke-width="2.5" stroke-linecap="round"/>`;
+  }
+  if(p.pr){
+    const r=p.pr;
+    if(r.t==="dash") s+=`<circle cx="${r.x}" cy="${r.y}" r="${r.r}" fill="none" stroke="${acc}" stroke-width="2.2" stroke-dasharray="3.5 3.5"/>`;
+    else s+=`<circle cx="${r.x}" cy="${r.y}" r="${r.r}" fill="none" stroke="${acc}" stroke-width="3.4"/>`;
+  }
+  for(const line of p.l){
+    s+=`<polyline points="${line.map(pt=>pt.join(",")).join(" ")}" fill="none" stroke="${ink}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+  s+=`<circle cx="${p.h[0]}" cy="${p.h[1]}" r="6.6" fill="${ink}"/></svg>`;
+  return s;
+}
+
+/* ── 상태 ── */
+const $=id=>document.getElementById(id);
+let seq=[], cat="all", bp="all", style="all", query="";
+const STORE_KEY="jh-seq-builder-v2";
+let toastTimer=null;
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),1700);}
+function escapeHtml(s){return s.replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+
+/* ── 저장소 (localStorage) ── */
+function loadSaved(){try{return JSON.parse(localStorage.getItem(STORE_KEY)||"[]");}catch(e){return [];}}
+function persistSaved(arr){try{localStorage.setItem(STORE_KEY,JSON.stringify(arr));}catch(e){}}
+
+/* ── 필터 UI ── */
+function renderTabs(){
+  const cc={all:POSES.length};for(const k in CATS)cc[k]=POSES.filter(p=>p.c===k).length;
+  $("tabs").innerHTML=[["all","전체"],...Object.entries(CATS)].map(([k,n])=>
+    `<button class="tab ${cat===k?"active":""}" data-k="${k}" type="button">${n} ${cc[k]}</button>`).join("");
+  $("tabs").querySelectorAll(".tab").forEach(b=>b.onclick=()=>{cat=b.dataset.k;if(cat!=="y")style="all";renderTabs();renderChips();renderCards();});
+}
+function renderChips(){
+  $("bpChips").innerHTML=[["all","전체"],...Object.entries(BP)].map(([k,n])=>
+    `<button class="chip ${bp===k?"active":""}" data-k="${k}" type="button">${n}</button>`).join("");
+  $("bpChips").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{bp=b.dataset.k;renderChips();renderCards();});
+  const sb=$("styleBlock");
+  sb.classList.toggle("hidden",cat!=="y");
+  if(cat==="y"){
+    $("styleChips").innerHTML=[["all","전체"],...Object.entries(STYLES)].map(([k,n])=>
+      `<button class="chip ${style===k?"active":""}" data-k="${k}" type="button">${n}</button>`).join("");
+    $("styleChips").querySelectorAll(".chip").forEach(b=>b.onclick=()=>{style=b.dataset.k;renderChips();renderCards();});
+  }
+}
+
+/* ── 동작 카드 ── */
+function renderCards(){
+  const q=query.trim().toLowerCase();
+  const list=POSES.filter(p=>
+    (cat==="all"||p.c===cat)&&
+    (bp==="all"||p.bp.includes(bp))&&
+    (cat!=="y"||style==="all"||p.st===style)&&
+    (!q||p.ko.toLowerCase().includes(q)||p.en.toLowerCase().includes(q))
+  );
+  $("meta").textContent=`${list.length}개 표시 중`;
+  $("empty").classList.toggle("hidden",list.length>0);
+  $("cards").innerHTML=list.map(p=>{
+    const n=seq.filter(id=>id===p.id).length;
+    const tags=[`<span class="tag type">${CATS[p.c]}</span>`];
+    if(p.st)tags.push(`<span class="tag style">${STYLES[p.st]}</span>`);
+    p.bp.forEach(k=>tags.push(`<span class="tag bp">${BP[k]}</span>`));
+    return `<article class="card" data-id="${p.id}">
+      <div class="card-top">
+        <div class="art">${n?`<span class="in-seq">${n}</span>`:""}${figSVG(p)}</div>
+        <div>
+          <h3 class="title">${p.ko}</h3>
+          <p class="sub">${p.en}</p>
+          <div class="tags">${tags.join("")}</div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="ghost" data-guide="${p.id}" type="button">가이드</button>
+        <button class="primary" data-add="${p.id}" type="button">＋ 담기</button>
+      </div>
+    </article>`;
+  }).join("");
+  $("cards").querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>addPose(b.dataset.add));
+  $("cards").querySelectorAll("[data-guide]").forEach(b=>b.onclick=()=>openDetail(b.dataset.guide));
+}
+
+/* ── 동작 가이드 모달 ── */
+let modalPoseId=null;
+function openDetail(id){
+  const p=byId[id];modalPoseId=id;
+  $("modalArt").innerHTML=figSVG(p,{sw:4});
+  $("modalTitle").textContent=p.ko;
+  $("modalDesc").textContent=p.en;
+  const tags=[`<span class="tag type">${CATS[p.c]}</span>`];
+  if(p.st)tags.push(`<span class="tag style">${STYLES[p.st]}</span>`);
+  p.bp.forEach(k=>tags.push(`<span class="tag bp">${BP[k]}</span>`));
+  $("modalTags").innerHTML=tags.join("");
+  $("gTarget").textContent=p.g[0];
+  $("gHow").textContent=p.g[1];
+  $("gTip").textContent=p.g[2];
+  $("modal").classList.add("open");
+}
+$("modalAdd").onclick=()=>{if(modalPoseId)addPose(modalPoseId);$("modal").classList.remove("open");};
+$("closeModal").onclick=()=>$("modal").classList.remove("open");
+$("closePreview").onclick=()=>$("previewModal").classList.remove("open");
+document.querySelectorAll(".modal").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)m.classList.remove("open");}));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.querySelectorAll(".modal.open").forEach(m=>m.classList.remove("open"));});
+
+/* ── 시퀀스 ── */
+function addPose(id){
+  if(seq.length>=24){toast("한 시퀀스에는 최대 24개 동작까지 담을 수 있어요");return;}
+  seq.push(id);
+  toast(`${byId[id].ko} 추가 · ${seq.length}번째`);
+  renderSeq();renderCards();
+}
+function removeAt(i){seq.splice(i,1);renderSeq();renderCards();}
+function moveAt(i,d){const j=i+d;if(j<0||j>=seq.length)return;[seq[i],seq[j]]=[seq[j],seq[i]];renderSeq();}
+
+function renderSeq(){
+  const el=$("seqItems");
+  if(!seq.length){
+    el.innerHTML=`<div class="empty">아직 담긴 동작이 없습니다.<br>왼쪽 카드의 <b>＋ 담기</b>를 눌러보세요.</div>`;
+  }else{
+    el.innerHTML=seq.map((id,i)=>{
+      const p=byId[id];
+      return `<div class="seq-item">
+        <span class="num">${i+1}</span>
+        <span class="thumb">${figSVG(p,{floor:false,sw:6})}</span>
+        <div class="nm"><strong>${p.ko}</strong><span>${CATS[p.c]}</span></div>
+        <div class="ctl">
+          <button data-act="up" data-i="${i}" type="button" aria-label="위로">↑</button>
+          <button data-act="dn" data-i="${i}" type="button" aria-label="아래로">↓</button>
+          <button data-act="rm" data-i="${i}" type="button" aria-label="삭제">×</button>
+        </div></div>`;
+    }).join("");
+    el.querySelectorAll("button").forEach(b=>{
+      const i=+b.dataset.i;
+      b.onclick=()=>{if(b.dataset.act==="up")moveAt(i,-1);else if(b.dataset.act==="dn")moveAt(i,1);else removeAt(i);};
+    });
+  }
+  $("statSeq").textContent=seq.length;
+  $("floatCount").textContent=seq.length;
+  ["exportBtn","saveBtn","clearBtn"].forEach(k=>$(k).disabled=!seq.length);
+}
+
+$("clearBtn").onclick=()=>{if(seq.length&&confirm("시퀀스를 모두 비울까요?")){seq=[];renderSeq();renderCards();}};
+$("floatSeq").onclick=()=>$("builderPanel").scrollIntoView({behavior:"smooth",block:"start"});
+$("search").addEventListener("input",e=>{query=e.target.value;renderCards();});
+
+/* ── 보관함 ── */
+$("saveBtn").onclick=()=>{
+  if(!seq.length)return;
+  const arr=loadSaved();
+  arr.unshift({id:Date.now().toString(36),title:$("seqTitle").value||"Today's Sequence",items:[...seq],ts:Date.now()});
+  persistSaved(arr.slice(0,50));
+  renderSavedList();
+  toast("보관함에 저장했어요");
+};
+function renderSavedList(){
+  const arr=loadSaved();const el=$("savedList");
+  $("statSaved").textContent=arr.length;
+  if(!arr.length){el.innerHTML=`<div class="empty">저장된 시퀀스가 없습니다.<br>시퀀스를 구성한 뒤 <b>저장</b>을 눌러보세요.</div>`;return;}
+  el.innerHTML=arr.map(s=>{
+    const d=new Date(s.ts);
+    const date=`${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,"0")}.${String(d.getDate()).padStart(2,"0")}`;
+    return `<div class="item" data-id="${s.id}">
+      <div><strong>${escapeHtml(s.title)}</strong><span>${date} · 동작 ${s.items.length}개</span></div>
+      <button class="small-btn load" type="button">불러오기</button>
+      <button class="small-btn del" type="button">삭제</button>
+    </div>`;
+  }).join("");
+  el.querySelectorAll(".item").forEach(row=>{
+    const id=row.dataset.id;
+    row.querySelector(".load").onclick=()=>{
+      const s=loadSaved().find(x=>x.id===id);if(!s)return;
+      seq=s.items.filter(pid=>byId[pid]);
+      $("seqTitle").value=s.title;
+      renderSeq();renderCards();
+      toast(`‘${s.title}’ 불러왔어요`);
+      $("builderPanel").scrollIntoView({behavior:"smooth",block:"start"});
+    };
+    row.querySelector(".del").onclick=()=>{
+      if(!confirm("이 시퀀스를 삭제할까요?"))return;
+      persistSaved(loadSaved().filter(x=>x.id!==id));
+      renderSavedList();
+    };
+  });
+}
+
+/* ── 9:16 스토리 이미지 (1080×1920, 포털 파스텔 디자인) ── */
+function svgToImage(svgStr){return new Promise((res,rej)=>{const img=new Image();img.onload=()=>res(img);img.onerror=rej;img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(svgStr);});}
+const CANVAS_FONT="'HakgyoansimNadeuriTTF-B','Apple SD Gothic Neo','Noto Sans KR',sans-serif";
+
+async function buildStoryCanvas(){
+  const W=1080,H=1920;
+  const cv=document.createElement("canvas");cv.width=W;cv.height=H;
+  const x=cv.getContext("2d");
+  try{await document.fonts.load(`700 78px ${CANVAS_FONT}`);await document.fonts.ready;}catch(e){}
+
+  /* 파스텔 배경 */
+  const bg=x.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0,"#eef9ff");bg.addColorStop(.48,"#e7f4ff");bg.addColorStop(1,"#fff7fb");
+  x.fillStyle=bg;x.fillRect(0,0,W,H);
+  /* 부드러운 블롭 */
+  blob(W*0.9,H*0.06,300,"rgba(255,209,232,.55)");
+  blob(W*0.06,H*0.1,260,"rgba(117,202,255,.4)");
+  blob(W*0.86,H*0.92,300,"rgba(158,233,199,.35)");
+  function blob(cx2,cy2,r,c){const g=x.createRadialGradient(cx2,cy2,0,cx2,cy2,r);g.addColorStop(0,c);g.addColorStop(1,"rgba(255,255,255,0)");x.fillStyle=g;x.fillRect(cx2-r,cy2-r,r*2,r*2);}
+  /* 글래스 카드 프레임 */
+  x.fillStyle="rgba(255,255,255,.62)";
+  roundRect(40,40,W-80,H-80,52);x.fill();
+  x.strokeStyle="rgba(36,52,60,.10)";x.lineWidth=2.5;
+  roundRect(40,40,W-80,H-80,52);x.stroke();
+  function roundRect(rx,ry,rw,rh,rr){x.beginPath();x.moveTo(rx+rr,ry);x.arcTo(rx+rw,ry,rx+rw,ry+rh,rr);x.arcTo(rx+rw,ry+rh,rx,ry+rh,rr);x.arcTo(rx,ry+rh,rx,ry,rr);x.arcTo(rx,ry,rx+rw,ry,rr);x.closePath();}
+
+  const title=$("seqTitle").value||"Today's Sequence";
+  const d=new Date();
+  const dateStr=`${d.getFullYear()}. ${String(d.getMonth()+1).padStart(2,"0")}. ${String(d.getDate()).padStart(2,"0")}`;
+
+  x.textAlign="center";
+  /* 아이브로우 필 */
+  x.font=`800 26px ${CANVAS_FONT}`;
+  const eb="YOGA & PILATES SEQUENCE";
+  const ebw=x.measureText(eb).width+72;
+  x.fillStyle="rgba(255,255,255,.85)";
+  roundRect(W/2-ebw/2,96,ebw,58,29);x.fill();
+  x.strokeStyle="rgba(36,52,60,.10)";x.lineWidth=2;
+  roundRect(W/2-ebw/2,96,ebw,58,29);x.stroke();
+  x.fillStyle="#4e6973";
+  x.fillText(eb,W/2,135);
+
+  x.fillStyle="#24343c";
+  x.font=`900 76px ${CANVAS_FONT}`;
+  wrapText(x,title,W/2,256,W-220,90);
+
+  x.fillStyle="#667b84";
+  x.font=`800 31px ${CANVAS_FONT}`;
+  x.fillText(`${dateStr}  ·  ${seq.length} POSES`,W/2,352);
+
+  /* 구분 라인 + 그라데이션 점 */
+  const gl=x.createLinearGradient(W/2-160,0,W/2+160,0);
+  gl.addColorStop(0,"#75caff");gl.addColorStop(1,"#ff8fc7");
+  x.strokeStyle=gl;x.lineWidth=4;
+  x.beginPath();x.moveTo(W/2-160,392);x.lineTo(W/2-24,392);x.stroke();
+  x.beginPath();x.moveTo(W/2+24,392);x.lineTo(W/2+160,392);x.stroke();
+  x.beginPath();x.arc(W/2,392,10,0,Math.PI*2);x.stroke();
+
+  /* 동작 그리드 */
+  const n=seq.length;
+  const cols=n<=6?2:n<=12?3:4;
+  const rows=Math.ceil(n/cols);
+  const gx=104,gTop=444,gBottom=1742;
+  const cellW=(W-gx*2)/cols;
+  const cellH=Math.min((gBottom-gTop)/rows,cellW*1.22);
+  const oy=gTop+((gBottom-gTop)-cellH*rows)/2;
+  const figSize=Math.min(cellW*0.72,cellH-74);
+  const nameFont=cols===2?34:cols===3?30:25;
+  const numR=cols===4?17:19;
+
+  for(let i=0;i<n;i++){
+    const p=byId[seq[i]];
+    const cx=gx+(i%cols)*cellW+cellW/2;
+    const cy=oy+Math.floor(i/cols)*cellH;
+    /* 동작 배경 칩 */
+    x.fillStyle="rgba(255,255,255,.7)";
+    roundRect(cx-figSize/2-8,cy+2,figSize+16,figSize+8,30);x.fill();
+    x.strokeStyle="rgba(36,52,60,.08)";x.lineWidth=2;
+    roundRect(cx-figSize/2-8,cy+2,figSize+16,figSize+8,30);x.stroke();
+    const img=await svgToImage(figSVG(p,{floor:true,floorColor:"rgba(36,52,60,.14)",shadow:"rgba(117,202,255,.20)",sw:4.2}));
+    x.drawImage(img,cx-figSize/2,cy+6,figSize,figSize);
+    /* 번호 + 이름 */
+    const ty=cy+6+figSize+40;
+    x.font=`900 ${nameFont}px ${CANVAS_FONT}`;
+    const nw=x.measureText(p.ko).width;
+    const ng=x.createLinearGradient(cx-nw/2-numR*2-10,0,cx-nw/2-10,0);
+    ng.addColorStop(0,"#75caff");ng.addColorStop(1,"#ff8fc7");
+    x.fillStyle=ng;
+    x.beginPath();x.arc(cx-nw/2-numR-10,ty-numR*0.6,numR,0,Math.PI*2);x.fill();
+    x.fillStyle="#ffffff";
+    x.font=`900 ${Math.round(numR*1.08)}px ${CANVAS_FONT}`;
+    x.fillText(String(i+1),cx-nw/2-numR-10,ty-numR*0.6+numR*0.4);
+    x.fillStyle="#24343c";
+    x.font=`900 ${nameFont}px ${CANVAS_FONT}`;
+    x.fillText(p.ko,cx+numR/1.4,ty);
+  }
+
+  /* 푸터 서명 */
+  x.strokeStyle="rgba(36,52,60,.16)";x.lineWidth=2;
+  x.beginPath();x.moveTo(W/2-70,1782);x.lineTo(W/2+70,1782);x.stroke();
+  x.fillStyle="#536a73";
+  x.font=`900 38px ${CANVAS_FONT}`;
+  x.fillText("Joon Hee",W/2,1838);
+  return cv;
+
+  function wrapText(ctx,text,cx2,y,maxW,lh){
+    const words=text.split(" ");let line="",yy=y;
+    for(const w of words){
+      const test=line?line+" "+w:w;
+      if(ctx.measureText(test).width>maxW&&line){ctx.fillText(line,cx2,yy);line=w;yy+=lh;}
+      else line=test;
+    }
+    ctx.fillText(line,cx2,yy);
+  }
+}
+
+let lastBlob=null;
+$("exportBtn").onclick=async()=>{
+  if(!seq.length)return;
+  $("exportBtn").disabled=true;
+  try{
+    const cv=await buildStoryCanvas();
+    lastBlob=await new Promise(r=>cv.toBlob(r,"image/png"));
+    $("previewImg").src=URL.createObjectURL(lastBlob);
+    $("previewModal").classList.add("open");
+  }catch(e){toast("이미지 생성 중 문제가 발생했어요");console.error(e);}
+  $("exportBtn").disabled=false;
+};
+$("downloadBtn").onclick=()=>{
+  if(!lastBlob)return;
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(lastBlob);
+  a.download=($("seqTitle").value||"sequence")+"_story.png";
+  document.body.appendChild(a);a.click();a.remove();
+};
+$("shareBtn").onclick=async()=>{
+  if(!lastBlob)return;
+  const file=new File([lastBlob],"sequence_story.png",{type:"image/png"});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+    try{await navigator.share({files:[file],title:$("seqTitle").value});}catch(e){}
+  }else{toast("이 브라우저에선 공유가 지원되지 않아 다운로드로 대체해요");$("downloadBtn").click();}
+};
+
+/* ── 초기화 ── */
+$("statTotal").textContent=POSES.length;
+renderTabs();renderChips();renderCards();renderSeq();renderSavedList();
+</script>
+</body>
+</html>
