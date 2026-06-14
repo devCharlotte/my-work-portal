@@ -635,16 +635,170 @@ function charSVG(p, opts={}){
   const bang=`<path d="M ${HX-HR*0.95} ${HY-HR*0.2} A ${HR} ${HR} 0 0 1 ${HX+HR*0.95} ${HY-HR*0.2} L ${HX+HR*0.5} ${HY-HR*0.05} Q ${HX} ${HY-HR*0.5} ${HX-HR*0.5} ${HY-HR*0.05} Z" fill="${hair}"/>`;
   const tie=`<circle cx="${tieX}" cy="${tieY}" r="${HR*0.3}" fill="${hair}"/>`;
   const cheek=`<circle cx="${HX-HR*0.42}" cy="${HY+HR*0.28}" r="${HR*0.2}" fill="rgba(240,150,170,.5)"/><circle cx="${HX+HR*0.42}" cy="${HY+HR*0.28}" r="${HR*0.2}" fill="rgba(240,150,170,.5)"/>`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">`+base+prop+limbs+hands+hairCap+pony+tie+face+bang+cheek+`</svg>`;
+  // 작은 금속테 안경 (옵션)
+  const gm=opts.glasses?(()=>{const r=HR*0.42,g=opts.metal||"#E8B9C4";return `<g fill="none" stroke="${g}" stroke-width="${HR*0.13}"><circle cx="${HX-HR*0.4}" cy="${HY-HR*0.02}" r="${r}"/><circle cx="${HX+HR*0.4}" cy="${HY-HR*0.02}" r="${r}"/><line x1="${HX-HR*0.4+r}" y1="${HY-HR*0.02}" x2="${HX+HR*0.4-r}" y2="${HY-HR*0.02}"/></g>`;})():"";
+  // 머리카락 제외 옵션 (시퀀스 자세 썸네일용)
+  const headParts = opts.noHair ? (face+cheek) : (hairCap+pony+tie+face+bang+cheek);
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">`+base+prop+limbs+hands+headParts+gm+`</svg>`;
 }
 const OUTFITS=[{outfit:"#2B2B30",hair:"#3A2A28"},{outfit:"#37343C",hair:"#46342E"},{outfit:"#B9A6C9",hair:"#43332E"},{outfit:"#9EC4C0",hair:"#3A2A28"},{outfit:"#E3B7C7",hair:"#42302B"},{outfit:"#CBBBA0",hair:"#3C2B26"}];
 function outfitFor(p){let h=0;for(const ch of p.id)h=(h*31+ch.charCodeAt(0))>>>0;const o=OUTFITS[h%OUTFITS.length];return {...o,ponyFlip:(h>>3)&1};}
+/* 스토리용 히어로 캐릭터 기본 의상 (올블랙 + 갈색 웨이브) */
+const heroOutfit={outfit:"#2B2B30",outfitHi:"#3A3A42",hair:"#43312B",hairHi:"#5A4138",metal:"#E8B9C4"};
+
+/* ════════════════════════════════════════════════════════════
+   heroCharSVG — 스토리 이미지 상단에 크게 들어갈 마스코트
+   정면 상반신, 늘씬·귀여운 비율, 길고 굵은 웨이브 포니테일(높게 묶음),
+   밝은 금속테 안경, 정채연 무드(또렷한 눈매 + 부드러운 미소)
+   viewBox 0..120 (가로) × 0..150 (세로, 세로로 길게)
+   opts: {outfit, hair, skin}
+════════════════════════════════════════════════════════════ */
+function heroCharSVG(opts={}){
+  const skin   = opts.skin   || "#F4DAC6";
+  const skinSh = opts.skinSh || "#E9C3AC";
+  const hair   = opts.hair   || "#43312B";   // 진한 갈색
+  const hairHi = opts.hairHi || "#5A4138";
+  const outfit = opts.outfit || "#2B2B30";   // 올블랙
+  const outfitHi=opts.outfitHi||"#3A3A42";
+  const metal  = opts.metal  || "#E8B9C4";   // 밝은 금속테(골드)
+  const lip    = opts.lip    || "#D98A86";
+  const cheek  = "rgba(238,150,158,.5)";
+
+  const cx=60;            // 중심축
+  const headY=46, headR=23;   // 얼굴
+  // 포니테일은 머리 위 높게 묶여 뒤로 길게 흐른다(좌측으로 굵은 웨이브)
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 150">
+  <defs>
+    <linearGradient id="hHair" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="${hairHi}"/><stop offset="1" stop-color="${hair}"/>
+    </linearGradient>
+    <linearGradient id="hOutfit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="${outfitHi}"/><stop offset="1" stop-color="${outfit}"/>
+    </linearGradient>
+    <radialGradient id="hCheek" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="${cheek}"/><stop offset="1" stop-color="rgba(238,150,158,0)"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ── 뒤로 넘어간 긴 웨이브 포니테일 (뒤 레이어) ── -->
+  <path d="M ${cx+6} ${headY-headR+3}
+           C ${cx+36} ${headY-headR-7}, ${cx+46} ${headY+20}, ${cx+33} ${headY+42}
+           C ${cx+24} ${headY+58}, ${cx+38} ${headY+72}, ${cx+27} ${headY+90}
+           C ${cx+20} ${headY+102}, ${cx+30} ${headY+114}, ${cx+18} ${headY+128}
+           C ${cx+10} ${headY+118}, ${cx+13} ${headY+104}, ${cx+11} ${headY+90}
+           C ${cx+19} ${headY+72}, ${cx+7} ${headY+58}, ${cx+15} ${headY+38}
+           C ${cx+20} ${headY+20}, ${cx+6} ${headY-2}, ${cx+6} ${headY-headR+3} Z"
+        fill="url(#hHair)"/>
+  <!-- 포니테일 하이라이트 웨이브 -->
+  <path d="M ${cx+22} ${headY-6} C ${cx+32} ${headY+18}, ${cx+20} ${headY+42}, ${cx+27} ${headY+64}
+           C ${cx+31} ${headY+82}, ${cx+19} ${headY+98}, ${cx+19} ${headY+116}"
+        fill="none" stroke="${hairHi}" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
+
+  <!-- ── 목 + 어깨/상의 ── -->
+  <rect x="${cx-6}" y="${headY+headR-6}" width="12" height="14" rx="5" fill="${skinSh}"/>
+  <path d="M ${cx-30} 150 C ${cx-30} ${headY+headR+18}, ${cx-16} ${headY+headR+6}, ${cx} ${headY+headR+6}
+           C ${cx+16} ${headY+headR+6}, ${cx+30} ${headY+headR+18}, ${cx+30} 150 Z"
+        fill="url(#hOutfit)"/>
+  <!-- 스윗하트 넥라인 -->
+  <path d="M ${cx-12} ${headY+headR+7} Q ${cx} ${headY+headR+18} ${cx+12} ${headY+headR+7}"
+        fill="none" stroke="${skinSh}" stroke-width="3.2" stroke-linecap="round" opacity=".5"/>
+  <!-- 어깨끈 -->
+  <line x1="${cx-9}" y1="${headY+headR+8}" x2="${cx-15}" y2="${headY+headR+22}" stroke="${outfitHi}" stroke-width="3" stroke-linecap="round"/>
+  <line x1="${cx+9}" y1="${headY+headR+8}" x2="${cx+15}" y2="${headY+headR+22}" stroke="${outfitHi}" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- ── 앞머리 베이스(얼굴 뒤 헤어) ── -->
+  <path d="M ${cx-headR-1} ${headY+2}
+           C ${cx-headR-3} ${headY-headR-4}, ${cx+headR+3} ${headY-headR-4}, ${cx+headR+1} ${headY+2}
+           C ${cx+headR+2} ${headY+8}, ${cx+headR-2} ${headY+10}, ${cx+headR-4} ${headY+8}
+           L ${cx-headR+4} ${headY+8}
+           C ${cx-headR+2} ${headY+10}, ${cx-headR-2} ${headY+8}, ${cx-headR-1} ${headY+2} Z"
+        fill="url(#hHair)"/>
+
+  <!-- ── 얼굴 ── -->
+  <ellipse cx="${cx}" cy="${headY}" rx="${headR}" ry="${headR+1.5}" fill="${skin}"/>
+  <!-- 턱선 음영 -->
+  <path d="M ${cx-headR+3} ${headY+8} Q ${cx} ${headY+headR+5} ${cx+headR-3} ${headY+8}"
+        fill="none" stroke="${skinSh}" stroke-width="1.4" opacity=".4"/>
+
+  <!-- 볼터치 -->
+  <ellipse cx="${cx-12}" cy="${headY+7}" rx="6" ry="4.2" fill="url(#hCheek)"/>
+  <ellipse cx="${cx+12}" cy="${headY+7}" rx="6" ry="4.2" fill="url(#hCheek)"/>
+
+  <!-- ── 앞머리: 한쪽(오른쪽) 옆가르마 시스루뱅, 자연스럽게 흘러내림 ── -->
+  <!-- 큰 갈래: 정수리에서 시작해 왼쪽 관자놀이로 부드럽게 쓸려 내려옴(삐침 없이) -->
+  <path d="M ${cx+4} ${headY-headR+4}
+           C ${cx-4} ${headY-headR+2}, ${cx-headR+3} ${headY-headR+8}, ${cx-headR+2} ${headY-1}
+           C ${cx-headR+1} ${headY+4}, ${cx-headR+5} ${headY+6}, ${cx-headR+7} ${headY+4}
+           C ${cx-headR+6} ${headY-4}, ${cx-11} ${headY-7}, ${cx-3} ${headY-7}
+           C ${cx+2} ${headY-7}, ${cx+4} ${headY-9}, ${cx+4} ${headY-headR+4} Z"
+        fill="url(#hHair)"/>
+  <!-- 작은 갈래: 오른쪽으로 짧게 -->
+  <path d="M ${cx+4} ${headY-headR+4}
+           C ${cx+12} ${headY-headR+2}, ${cx+headR-2} ${headY-headR+8}, ${cx+headR-1} ${headY-3}
+           C ${cx+headR-3} ${headY-7}, ${cx+8} ${headY-7}, ${cx+3} ${headY-6}
+           C ${cx+4} ${headY-10}, ${cx+4} ${headY-headR+4}, ${cx+4} ${headY-headR+4} Z"
+        fill="url(#hHair)"/>
+  <!-- 앞머리 결 하이라이트 -->
+  <path d="M ${cx+1} ${headY-headR+6} C ${cx-7} ${headY-headR+6}, ${cx-headR+3} ${headY-2}, ${cx-headR+5} ${headY+2}"
+        fill="none" stroke="${hairHi}" stroke-width="1.2" stroke-linecap="round" opacity=".45"/>
+  <!-- 옆머리 -->
+  <path d="M ${cx-headR-1} ${headY-4} C ${cx-headR-3} ${headY+10}, ${cx-headR+2} ${headY+16}, ${cx-headR+5} ${headY+14}
+           C ${cx-headR+1} ${headY+6}, ${cx-headR+2} ${headY-2}, ${cx-headR-1} ${headY-4} Z" fill="${hair}"/>
+  <path d="M ${cx+headR+1} ${headY-4} C ${cx+headR+3} ${headY+10}, ${cx+headR-2} ${headY+16}, ${cx+headR-5} ${headY+14}
+           C ${cx+headR-1} ${headY+6}, ${cx+headR-2} ${headY-2}, ${cx+headR+1} ${headY-4} Z" fill="${hair}"/>
+
+  <!-- 묶은 부분: 혹처럼 튀지 않게 정수리를 매끈한 볼륨으로 덮음 -->
+  <path d="M ${cx-headR+4} ${headY-headR+6}
+           C ${cx-6} ${headY-headR-3}, ${cx+10} ${headY-headR-3}, ${cx+headR-2} ${headY-headR+7}
+           C ${cx+12} ${headY-headR+1}, ${cx-4} ${headY-headR+1}, ${cx-headR+4} ${headY-headR+6} Z"
+        fill="url(#hHair)"/>
+  <!-- 묶음 끈(슬림하게) -->
+  <ellipse cx="${cx+6}" cy="${headY-headR+1}" rx="3.4" ry="2.6" fill="${hair}"/>
+  <path d="M ${cx+3} ${headY-headR+1} Q ${cx+6} ${headY-headR-1} ${cx+9} ${headY-headR+1}"
+        fill="none" stroke="${hairHi}" stroke-width="1" stroke-linecap="round" opacity=".6"/>
+
+  <!-- ── 눈썹 ── -->
+  <path d="M ${cx-15} ${headY-3} Q ${cx-9} ${headY-6} ${cx-4} ${headY-3.5}" fill="none" stroke="${hair}" stroke-width="1.6" stroke-linecap="round"/>
+  <path d="M ${cx+15} ${headY-3} Q ${cx+9} ${headY-6} ${cx+4} ${headY-3.5}" fill="none" stroke="${hair}" stroke-width="1.6" stroke-linecap="round"/>
+
+  <!-- ── 눈 (또렷한 정채연 무드) ── -->
+  <g>
+    <ellipse cx="${cx-9}" cy="${headY+3}" rx="4.4" ry="5" fill="#fff"/>
+    <ellipse cx="${cx+9}" cy="${headY+3}" rx="4.4" ry="5" fill="#fff"/>
+    <circle cx="${cx-8.4}" cy="${headY+3.4}" r="3.4" fill="#4A352C"/>
+    <circle cx="${cx+9.6}" cy="${headY+3.4}" r="3.4" fill="#4A352C"/>
+    <circle cx="${cx-9.6}" cy="${headY+2}" r="1.1" fill="#fff"/>
+    <circle cx="${cx+8.4}" cy="${headY+2}" r="1.1" fill="#fff"/>
+    <!-- 윗 속눈썹 라인 -->
+    <path d="M ${cx-13.5} ${headY+0.5} Q ${cx-9} ${headY-2} ${cx-4.5} ${headY+0.8}" fill="none" stroke="#2E211C" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M ${cx+13.5} ${headY+0.5} Q ${cx+9} ${headY-2} ${cx+4.5} ${headY+0.8}" fill="none" stroke="#2E211C" stroke-width="1.5" stroke-linecap="round"/>
+  </g>
+
+  <!-- ── 밝은 금속테 안경 ── -->
+  <g fill="none" stroke="${metal}" stroke-width="1.7">
+    <rect x="${cx-16}" y="${headY-3.5}" width="13.5" height="11.5" rx="5.2"/>
+    <rect x="${cx+2.5}" y="${headY-3.5}" width="13.5" height="11.5" rx="5.2"/>
+    <path d="M ${cx-2.5} ${headY+2} Q ${cx} ${headY+0.5} ${cx+2.5} ${headY+2}"/>
+    <line x1="${cx-16}" y1="${headY+1}" x2="${cx-21}" y2="${headY-0.5}"/>
+    <line x1="${cx+16}" y1="${headY+1}" x2="${cx+21}" y2="${headY-0.5}"/>
+  </g>
+  <!-- 렌즈 반사 -->
+  <line x1="${cx-14}" y1="${headY+1}" x2="${cx-10}" y2="${headY-1}" stroke="#fff" stroke-width="1" opacity=".5" stroke-linecap="round"/>
+  <line x1="${cx+5}" y1="${headY+1}" x2="${cx+9}" y2="${headY-1}" stroke="#fff" stroke-width="1" opacity=".5" stroke-linecap="round"/>
+
+  <!-- ── 코 + 입(부드러운 미소) ── -->
+  <path d="M ${cx-1} ${headY+8} Q ${cx} ${headY+10} ${cx+1.5} ${headY+9}" fill="none" stroke="${skinSh}" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M ${cx-5} ${headY+13.5} Q ${cx} ${headY+17.5} ${cx+5} ${headY+13.5}" fill="none" stroke="${lip}" stroke-width="2" stroke-linecap="round"/>
+  </svg>`;
+}
 
 /* 기존 figSVG 호출부 호환 래퍼 → 미니미 캐릭터로 위임 */
 function figSVG(p, opts={}){
   const o = outfitFor(p);
   return charSVG(p, {
     outfit:o.outfit, hair:o.hair, ponyFlip:o.ponyFlip,
+    noHair: opts.noHair!==false,
     floor: opts.floor!==false,
     floorColor: opts.floorColor, shadow: opts.shadow,
     headR: opts.headR, limbW: opts.limbW
@@ -868,37 +1022,48 @@ async function buildStoryCanvas(){
 
   x.textAlign="center";
   /* 아이브로우 필 */
-  x.font=`800 26px ${CANVAS_FONT}`;
+  x.font=`800 24px ${CANVAS_FONT}`;
   const eb="YOGA & PILATES SEQUENCE";
-  const ebw=x.measureText(eb).width+72;
+  const ebw=x.measureText(eb).width+64;
   x.fillStyle="rgba(255,255,255,.85)";
-  roundRect(W/2-ebw/2,96,ebw,58,29);x.fill();
+  roundRect(W/2-ebw/2,86,ebw,52,26);x.fill();
   x.strokeStyle="rgba(36,52,60,.10)";x.lineWidth=2;
-  roundRect(W/2-ebw/2,96,ebw,58,29);x.stroke();
+  roundRect(W/2-ebw/2,86,ebw,52,26);x.stroke();
   x.fillStyle="#4e6973";
-  x.fillText(eb,W/2,135);
+  x.fillText(eb,W/2,120);
 
   x.fillStyle="#24343c";
-  x.font=`900 76px ${CANVAS_FONT}`;
-  wrapText(x,title,W/2,256,W-220,90);
+  x.font=`900 68px ${CANVAS_FONT}`;
+  wrapText(x,title,W/2,210,W-220,80);
 
   x.fillStyle="#667b84";
-  x.font=`800 31px ${CANVAS_FONT}`;
-  x.fillText(`${dateStr}  ·  ${seq.length} POSES`,W/2,352);
+  x.font=`800 29px ${CANVAS_FONT}`;
+  x.fillText(`${dateStr}  ·  ${seq.length} POSES`,W/2,290);
+
+  /* ── 큰 히어로 캐릭터 (안경 + 긴 웨이브 포니테일) ── */
+  const heroOpt=(typeof heroOutfit!=="undefined")?heroOutfit:{outfit:"#2B2B30",outfitHi:"#3A3A42",hair:"#43312B",hairHi:"#5A4138"};
+  const heroSvg=heroCharSVG(heroOpt);
+  const heroImg=await svgToImage(heroSvg);
+  const heroH=300, heroW=heroH*120/150;
+  const halo=x.createRadialGradient(W/2,470,10,W/2,470,180);
+  halo.addColorStop(0,"rgba(255,209,232,.5)");halo.addColorStop(1,"rgba(255,209,232,0)");
+  x.fillStyle=halo;x.fillRect(W/2-180,300,360,340);
+  x.drawImage(heroImg,W/2-heroW/2,318,heroW,heroH);
 
   /* 구분 라인 + 그라데이션 점 */
+  const sepY=672;
   const gl=x.createLinearGradient(W/2-160,0,W/2+160,0);
   gl.addColorStop(0,"#75caff");gl.addColorStop(1,"#ff8fc7");
   x.strokeStyle=gl;x.lineWidth=4;
-  x.beginPath();x.moveTo(W/2-160,392);x.lineTo(W/2-24,392);x.stroke();
-  x.beginPath();x.moveTo(W/2+24,392);x.lineTo(W/2+160,392);x.stroke();
-  x.beginPath();x.arc(W/2,392,10,0,Math.PI*2);x.stroke();
+  x.beginPath();x.moveTo(W/2-160,sepY);x.lineTo(W/2-24,sepY);x.stroke();
+  x.beginPath();x.moveTo(W/2+24,sepY);x.lineTo(W/2+160,sepY);x.stroke();
+  x.beginPath();x.arc(W/2,sepY,10,0,Math.PI*2);x.stroke();
 
   /* 동작 그리드 */
   const n=seq.length;
   const cols=n<=6?2:n<=12?3:4;
   const rows=Math.ceil(n/cols);
-  const gx=104,gTop=444,gBottom=1742;
+  const gx=104,gTop=716,gBottom=1742;
   const cellW=(W-gx*2)/cols;
   const cellH=Math.min((gBottom-gTop)/rows,cellW*1.22);
   const oy=gTop+((gBottom-gTop)-cellH*rows)/2;
